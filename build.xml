@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Project Build" default="help">
+	<includepath classpath="${project.basedir}/libs/phingx/classes" />
+	<includepath classpath="${project.basedir}/libs/phingx/classes/phing" />
+
+	<import file="build/properties.xml" />
+
+	<import file="build/get-build.xml" />
+
+	<import file="build/single-commands.xml" />
+
+	<target name="init">
+		<if>
+			<not>
+				<available file="${project.basedir}/libs/phingx"></available>
+			</not>
+			<then>
+				<property file="properties"></property>
+				<if>
+					<isset property="init.libs.phingx.deploy.src"></isset>
+					<then>
+						<exec
+							command="svn checkout ${init.libs.phingx.deploy.src} ${project.basedir}/libs/phingx"
+							logoutput="true" checkreturn="true"></exec>
+					</then>
+				</if>
+			</then>
+			<else>
+			</else>
+		</if>
+	</target>
+
+	<target name="help" description="Help message">
+		<echo>Welcome to the haru project.</echo>
+		<echo><![CDATA[Run command "$phing -list" and restart phing by selecting below.]]></echo>
+	</target>
+
+</project>

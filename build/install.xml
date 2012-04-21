@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Project Install" default="install-main">
+	<target name="install-main">
+		<echo>Start install project</echo>
+
+		<phing phingfile="${build.dir.root}/targets/install.xml" target="before"
+			haltonfailure="true"></phing>
+
+		<phingcall target="install-makedir"></phingcall>
+		<phingcall target="install-libs"></phingcall>
+
+		<phing phingfile="${build.dir.root}/targets/install.xml" target="after"
+			haltonfailure="true"></phing>
+
+		<echo>Finish install project</echo>
+	</target>
+
+	<target name="install-makedir">
+		<mkdir dir="${paths.root}" />
+		<mkdir dir="${paths.data}" />
+		<mkdir dir="${paths.etc}" />
+		<mkdir dir="${paths.shared}" />
+		<mkdir dir="${paths.scripts}" />
+
+		<mkdir dir="${paths.tmp}" />
+		<chmod file="${paths.tmp}" mode="0777" failonerror="false" />
+
+		<mkdir dir="${paths.logs}" />
+		<chmod file="${paths.logs}" mode="0777" failonerror="false" />
+	</target>
+
+	<target name="install-libs">
+		<!-- Делаем файлики из конфига. Режем на item -->
+		<taskdef name="libitem" classname="phing.tasks.ext.LibItemTask" />
+		<libitem srcFile="${build.config.filename.xml}" dstDir="${build.dir.tmp.libitem}" />
+
+		<!-- Пробегаем циклом -->
+		<!-- Выкачиваем нужные либы -->
+		<taskdef name="libdeploy" classname="phing.tasks.ext.LibDeployTask" />
+		<libdeploy>
+			<fileset dir="${build.dir.tmp.libitem}" id="lib.items">
+				<include name="*.xml" />
+			</fileset>
+		</libdeploy>
+	</target>
+</project>

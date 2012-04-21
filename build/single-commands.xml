@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="Project Single Commands List">
+	<target name="install" depends="init,properties"
+		description="Install project. Create necessary directories and load libs.">
+		<phing phingfile="build/install.xml" target="install-main"
+			haltonfailure="true"></phing>
+	</target>
+
+	<target name="update" depends="init,properties"
+		description="Update project. Update project files.">
+		<phing phingfile="build/update.xml" target="update-main" haltonfailure="true"></phing>
+	</target>
+
+	<target name="configure" depends="init,properties"
+		description="Configure project. Create special files from templates, make config data files.">
+		<phing phingfile="build/configure.xml" target="configure-main"
+			haltonfailure="true"></phing>
+		<!-- phingcall target="configure-test"></phingcall -->
+	</target>
+
+	<target name="link" depends="init,properties"
+		description="Link project. Create symbolic links.">
+		<phing phingfile="build/link.xml" target="link-main" haltonfailure="true"></phing>
+	</target>
+</project>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Project Link Targets" default="help">
+	<target name="help">
+		<echo>Target should not be called directly</echo>
+	</target>
+	
+	<target name="before">
+		<!-- custom project actions _before_ link -->
+	</target>
+	
+	<target name="after">
+		<!-- custom project actions _after_ link -->
+	</target>
+</project>

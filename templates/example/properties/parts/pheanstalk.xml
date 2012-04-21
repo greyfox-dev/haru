@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<Pheanstalk>
+			<deploy>
+				<type>svn</type>
+				<tag>1.1.0</tag>
+				<src>${config.svn.url}/ppc/externals/Pheanstalk/${config.libs.Pheanstalk.deploy.tag}</src>
+				<dst>${config.paths.libs}/pheanstalk/${config.libs.Pheanstalk.deploy.tag}</dst>
+				<svn>
+					<username>${config.svn.username}</username>
+					<password>${config.svn.password}</password>
+				</svn>
+			</deploy>
+		</Pheanstalk>
+	</libs>
+</config>

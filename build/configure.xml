@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Project Install" default="configure-main">
+	<target name="configure-main">
+		<echo>Start configure project</echo>
+
+		<phing phingfile="${build.dir.root}/targets/configure.xml" target="before"
+			haltonfailure="true"></phing>
+
+		<!-- Make configs for modules -->
+		<taskdef name="libslice" classname="phing.tasks.ext.LibSliceTask" />
+		<libslice filename="${build.config.filename.xml}" />
+
+		<taskdef name="libconfigure" classname="phing.tasks.ext.LibConfigureTask" />
+		<libconfigure config="${build.config.filename.xml}" />		
+
+		<copy file="${build.config.filename.xml}" tofile="${paths.data}/config.xml" overwrite="true"/>
+		<copy file="${build.config.filename.php}" tofile="${paths.data}/config.php" overwrite="true"/>
+
+		<phing phingfile="${build.dir.root}/targets/configure.xml" target="after"
+			haltonfailure="true"></phing>
+
+		<echo>Finish configure project</echo>
+	</target>
+
+</project>

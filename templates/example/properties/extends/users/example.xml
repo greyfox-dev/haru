@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<project_name>realty</project_name>
+	<paths>
+		<root>/www/v2.realty.rbc.ru</root>
+	</paths>
+	<hosts>
+		<root>v2.realty.dv.rbc.ru</root>		
+	</hosts>
+	<svn>
+		<username></username>
+		<password></password>
+	</svn>	
+</config>
