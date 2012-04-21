@@ -32,7 +32,18 @@
 
 	<target name="help" description="Help message">
 		<echo>Welcome to the haru project.</echo>
-		<echo><![CDATA[Run command "$phing -list" and restart phing by selecting below.]]></echo>
+		<echo><![CDATA[Available comman list.]]></echo>
+		<echo><![CDATA[	Initialize project build:]]></echo>
+		<echo><![CDATA[		born - Create project build]]></echo>
+		<echo><![CDATA[		get-build - Init propject build]]></echo>
+		<echo><![CDATA[	Deploy command:]]></echo>
+		<echo><![CDATA[		install - Create file structure of your project]]></echo>
+		<echo><![CDATA[		configure - Generate files from templates, make directories]]></echo>
+		<echo><![CDATA[		link - Create/change project symlinks]]></echo>
+		<echo><![CDATA[	Remote deploy command:]]></echo>
+		<echo><![CDATA[		install-all]]></echo>
+		<echo><![CDATA[		configure-all]]></echo>
+		<echo><![CDATA[		link-all]]></echo>
 	</target>
 
 </project>
