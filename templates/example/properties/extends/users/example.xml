@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-	<project_name>realty</project_name>
+	<project_name>project.dv</project_name>
 	<paths>
-		<root>/www/v2.realty.rbc.ru</root>
+		<root>/www/project.dv</root>
 	</paths>
 	<hosts>
-		<root>v2.realty.dv.rbc.ru</root>		
+		<root>project.dv</root>		
 	</hosts>
 	<svn>
 		<username></username>

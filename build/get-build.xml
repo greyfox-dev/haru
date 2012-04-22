@@ -27,7 +27,7 @@
 		<propertyprompt propertyName="get-build.project_build_name"
 			promptText="Enter project build name" />
 		<propertyprompt propertyName="get-build.deploy.svn.src"
-			defaultValue="http://svn.rbc.ru/ppc/projects_build/trunk/${get-build.project_build_name}"
+			defaultValue="https://TheRatG@github.com/TheRatG/${get-build.project_build_name}"
 			promptText="Enter project build url" />
 		<propertyprompt propertyName="get-build.deploy.dst"
 			defaultValue="/www/build/${get-build.project_build_name}" promptText="Enter build save path" />

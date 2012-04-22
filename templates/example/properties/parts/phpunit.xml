@@ -5,8 +5,8 @@
 			<plugin>PHPUnit</plugin>
 			<deploy>
 				<type><![CDATA[svn]]></type>
-				<tag><![CDATA[3.6.7]]></tag>
-				<src><![CDATA[http://svn.rbc.ru/ppc/externals/PHPUnit/${config.libs.PHPUnit.deploy.tag}]]></src>				
+				<tag><![CDATA[branches/3.6]]></tag>
+				<src><![CDATA[https://TheRatG@github.com/TheRatG/phpunit.git/${config.libs.PHPUnit.deploy.tag}]]></src>				
 				<dst>${config.paths.libs}/phpunit/${config.libs.PHPUnit.deploy.tag}</dst>
 				<current>${config.paths.libs}/phpunit/current</current>
 				<svn>

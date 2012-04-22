@@ -3,7 +3,7 @@
 	<project_name>realty</project_name>
 	<build_type>${config.phing.build.type}</build_type>
 	<paths>
-		<root>/www/v2.realty.rbc.ru</root>
+		<root>/www/project.dv</root>
 
 		<public>${config.paths.root}/public</public>
 		<protected>${config.paths.root}/protected</protected>
@@ -22,7 +22,7 @@
 		<pics>${config.hosts.root}</pics>
 	</hosts>
 	<svn>
-		<url>http://svn.rbc.ru</url>
+		<url>https://TheRatG@github.com/TheRatG</url>
 		<username></username>
 		<password></password>
 	</svn>
