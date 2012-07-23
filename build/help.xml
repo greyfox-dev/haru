@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="help">
 	<target name="help" description="Help message">
-		<echo>Welcome to the haru project.</echo>
+		<echo>Welcome to the Haru project.</echo>
 		<echo><![CDATA[Available comman list.]]></echo>
 		<echo><![CDATA[	Initialize project build:]]></echo>
 		<echo><![CDATA[		born - Create project build]]></echo>
