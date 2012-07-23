@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="linkall">
+	<target name="linkall" depends="init,properties" description="Run remote 'link' project.">
+		<taskdef name="remote" classname="phing.tasks.ext.RemoteTask" />
+		<remote target="update-build" host="${hosts.masters}" />
+
+		<if>
+			<istrue value="${build.targets.dir.exists}"></istrue>
+			<then>
+				<phingcall target="linkall-before" />
+			</then>
+		</if>
+
+		<remote target="link" host="${hosts.masters}" />
+
+		<if>
+			<istrue value="${build.targets.dir.exists}"></istrue>
+			<then>
+				<phingcall target="linkall-after" />
+			</then>
+		</if>
+	</target>
+</project>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="help">
+
+	<target name="configure-before">
+		<echo>custom project actions _before_ configure</echo>
+	</target>
+
+	<target name="configure-after">
+		<echo>custom project actions _after_ configure</echo>
+		<phing
+			phingfile="${libs.${born-properties.lib_name}.deploy.dst}/build/targets/configure.xml"
+			target="main" haltonfailure="true" />
+			
+		<if>
+			<istrue value="${use_glue}" />
+			<then>
+				<verboseexec
+					command="${system.bin.php} ${libs.Miao.deploy.dst}/scripts/glue.php"
+					checkreturn="true" />
+			</then>
+		</if>
+	</target>
+
+</project>

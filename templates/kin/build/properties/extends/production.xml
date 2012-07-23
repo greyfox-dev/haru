@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>	
+	<build_type>test</build_type>
+	<paths>
+		<root></root>
+	</paths>
+	<hosts>
+		<root></root>
+	</hosts>
+</config>

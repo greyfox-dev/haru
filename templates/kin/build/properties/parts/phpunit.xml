@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<PHPUnit>
+			<plugin>PHPUnit</plugin>
+			<deploy>
+				<type><![CDATA[svn]]></type>
+				<tag><![CDATA[branches/3.6]]></tag>
+				<src><![CDATA[https://TheRatG@github.com/TheRatG/phpunit.git/${config.libs.PHPUnit.deploy.tag}]]></src>				
+				<dst>${config.paths.libs}/phpunit/${config.libs.PHPUnit.deploy.tag}</dst>
+				<current>${config.paths.libs}/phpunit/current</current>				
+			</deploy>
+			<configure></configure>
+			<link></link>
+		</PHPUnit>
+	</libs>
+</config>

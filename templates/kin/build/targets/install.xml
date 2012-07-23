@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="help">
+	
+	<target name="install-before">
+		<echo>custom project actions _before_ install</echo>
+	</target>
+	
+	<target name="install-after">
+		<echo>custom project actions _after_ install</echo>
+	</target>
+	
+</project>

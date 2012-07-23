@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+	<target name="update-build" depends="init"
+		description="Update high-level project build">
+		<if>
+			<available file="${build.dir.root}/.svn"></available>
+			<then>
+				<property name="update-build.command" value="svn update ${build.dir.root}"></property>
+				<echo>${update-build.command}</echo>
+				<exec command="${update-build.command}" logoutput="true"></exec>
+			</then>
+			<else>
+                <if>
+                    <available file="${build.dir.root}/.hg" />
+                    <then>
+                        <property name="update-build.command" value="cd ${build.dir.root}; hg pull -u; cd -;"></property>
+                        <echo>${update-build.command}</echo>
+                        <exec command="${update-build.command}" logoutput="true"></exec>
+                    </then>
+                    <else>
+    				    <echo>Other repos doesn't support</echo>
+                    </else>
+                </if>
+			</else>
+		</if>		
+	</target>
+</project>

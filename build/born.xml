@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="born">
+
+	<target name="born" depends="init,born-properties" description="Create new project">
+		<phingcall target="born-build">
+			<property name="born-build.project_name" value="${born-properties.project_name}" />
+			<property name="born-build.lib_name" value="${born-properties.lib_name}" />
+			<property name="born-build.paths.build.dst" value="${born-properties.paths.root}/build" />
+			<property name="born-build.hosts.public" value="${born-properties.hosts.public}" />
+			<property name="born-build.settingsCorrect" value="${born-properties.isCorrect}" />
+		</phingcall>
+		<phingcall target="born-project">
+		</phingcall>
+	</target>
+
+	<target name="born-properties">
+        <if>
+            <isset property="lib" />
+            <then>
+                <property name="born-properties.lib_name" value="${lib}" />
+            </then>
+            <else>
+                <propertyprompt propertyName="born-properties.lib_name"
+                    defaultValue="kin" promptText="Enter your project name (Kin - 'jap.' golden)" />
+            </else>
+        </if>
+		<php expression="preg_match( '/^[a-zA-Z][a-zA-Z0-9]{1,15}$/i', '${born-properties.lib_name}' )"
+			returnProperty="born-properties.check_lib_name" />
+		
+		<if>
+			<isfalse value="${born-properties.check_lib_name}" />
+			<then>
+				<fail message="Incorrect project name (${born-properties.lib_name}): must be only letters" />
+			</then>
+		</if>
+
+		<php expression="strtolower('${born-properties.lib_name}')"
+			returnProperty="born-properties.project_name" />
+		<php expression="ucfirst('${born-properties.lib_name}')"
+			returnProperty="born-properties.lib_name" />
+		
+        <if>
+            <isset property="path" />
+            <then>
+                <property name="born-properties.paths.root" value="${path}" />
+            </then>
+            <else>
+                <propertyprompt propertyName="born-properties.paths.root"
+                    defaultValue="/www/${born-properties.project_name}" promptText="Enter your project folder (paths.root)" />
+            </else>
+        </if>
+
+        <if>
+            <isset property="host" />
+            <then>
+                <property name="born-properties.hosts.public" value="${host}" />
+            </then>
+            <else>
+                <propertyprompt propertyName="born-properties.hosts.public"
+                    defaultValue="${born-properties.project_name}" promptText="Enter your project host (hosts.public)" />
+            </else>
+        </if>
+
+		<if>
+			<equals arg1="${born-properties.hosts.public}" arg2="" />
+			<then>
+				<fail message="Empty project host" />
+			</then>
+		</if>
+		<if>
+			<available file="${born-properties.paths.root}" />
+			<then>
+				<fail message="Directory ${born-properties.paths.root} exists" />
+			</then>
+		</if>
+
+		<echo>Project name: ${born-properties.lib_name}</echo>
+		<echo>Project root: ${born-properties.paths.root}</echo>
+		<echo>Project host: ${born-properties.hosts.public}</echo>
+
+		<propertyprompt propertyName="born-properties.isCorrect"
+			promptText="Settings is correct? (yes or no)" defaultValue="yes" />
+		<if>
+			<isfalse value="${born-properties.isCorrect}" />
+			<then>
+				<fail message="Please, start again." />
+			</then>
+		</if>
+	</target>
+
+	<target name="born-build">
+
+		<if>
+			<available file="${born-build.paths.build.dst}" />
+			<then>
+				<fail
+					message="File ${born-build.paths.build.dst} exists, delete it before create born build" />
+			</then>
+		</if>
+
+		<copy todir="${born-build.paths.build.dst}">
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+
+			<fileset dir="${build.tmpldir.build}">
+				<exclude name="bin/env.tpl" />
+				<exclude name="properties/parts/kin.xml" />
+				<exclude name="properties/extends/users/example.xml" />
+			</fileset>
+		</copy>
+
+		<property name="get-build.deploy.dst" value="${born-build.paths.build.dst}" />
+		<copy file="${build.tmpldir.build}/bin/env.tpl" tofile="${born-build.paths.build.dst}/bin/env">
+			<filterchain>
+    			<expandproperties />
+  			</filterchain>
+		</copy>
+
+		<copy file="${build.tmpldir.build}/properties/parts/kin.xml"
+			tofile="${born-build.paths.build.dst}/properties/parts/${born-properties.project_name}.xml"
+			overwrite="true">
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+		</copy>
+
+		<property name="get-build.user.property.filename"
+			value="${born-build.paths.build.dst}/properties/extends/users/${build.username}.xml" />
+		<copy file="${build.tmpldir.build}/properties/extends/users/example.xml"
+			tofile="${get-build.user.property.filename}" overwrite="true">
+			<filterchain>
+				<expandproperties />
+			</filterchain>			
+		</copy>
+	</target>
+
+	<target name="born-project">
+		<!-- todo: del trunk when will move to git or mercurial -->
+		<copy todir="${born-properties.paths.root}/libs/${born-properties.project_name}" >
+			<fileset dir="${build.tmpldir.root}/libs/kin" />
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+		</copy>	
+	
+		<property name="born-project.setup.command"
+			value="${born-properties.paths.root}/build/bin/phing install configure link -Dbt=D -Dbu=${build.username}" />
+		<echo>Setup cmd: ${born-project.setup.command}</echo>
+		<propertyprompt propertyName="born-project.setup.isContinue"
+			promptText="Setup project automatically? (yes or no)" defaultValue="yes" />
+
+		<if>
+			<istrue value="${born-project.setup.isContinue}" />
+			<then>
+				<echo>waiting...</echo>
+				<verboseexec command="${born-project.setup.command}"
+					checkreturn="true" />
+			</then>
+			<else>
+				<phingcall target="help-setup">
+					<property name="help-setup.deploy.dst" value="${born-properties.paths.root}/build" />
+					<property name="help-setup.user.property.filename"
+						value="properties/extends/users/${build.username}.xml" />
+				</phingcall>
+			</else>
+		</if>
+	</target>
+</project>

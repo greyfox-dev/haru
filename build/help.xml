@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="help">
+	<target name="help" description="Help message">
+		<echo>Welcome to the haru project.</echo>
+		<echo><![CDATA[Available comman list.]]></echo>
+		<echo><![CDATA[	Initialize project build:]]></echo>
+		<echo><![CDATA[		born - Create project build]]></echo>
+		<echo><![CDATA[		get-build - Init propject build]]></echo>
+		<echo><![CDATA[	Deploy command:]]></echo>
+		<echo><![CDATA[		install - Create file structure of your project]]></echo>
+		<echo><![CDATA[		configure - Generate files from templates, make directories]]></echo>
+		<echo><![CDATA[		link - Create/change project symlinks]]></echo>
+		<echo><![CDATA[	Remote deploy command:]]></echo>
+		<echo><![CDATA[		install-all]]></echo>
+		<echo><![CDATA[		configure-all]]></echo>
+		<echo><![CDATA[		link-all]]></echo>
+	</target>
+
+	<target name="help-setup">	
+		<!-- <echo>Move to directory: cd ${help-setup.deploy.dst}</echo> -->
+		<echo>Edit (check) user-property file: vi ${help-setup.user.property.filename}</echo>
+		<echo>Run install project: ${help-setup.deploy.dst}/bin/phing install -Dbt=D -Dbu=${build.username}</echo>
+		<echo>If install passed: ${help-setup.deploy.dst}/bin/phing configure link -Dbt=D -Dbu=${build.username}</echo>		
+	</target>
+</project>

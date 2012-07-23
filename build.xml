@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="Project Build" default="help">
+		<!-- common action -->
+	<includepath classpath="${project.basedir}/libs/phing/classes" />
 	<includepath classpath="${project.basedir}/libs/phingx/classes" />
 	<includepath classpath="${project.basedir}/libs/phingx/classes/phing" />
 
-	<import file="build/properties.xml" />
+<taskdef name="importlist" classname="phing.tasks.ext.ImportListTask" />
+	<taskdef name="verboseexec" classname="phing.tasks.ext.VerboseExecTask" />
 
-	<import file="build/get-build.xml" />
+<taskdef name="dump" classname="phing.tasks.ext.DumpTask" />	
+	<importlist>
 
-	<import file="build/single-commands.xml" />
+<fileset dir="build">
+	<include name="**/*.xml" />
 
-	<target name="init">
+</fileset>
+	</importlist>
 		<if>
-			<not>
-				<available file="${project.basedir}/libs/phingx"></available>
-			</not>
+			<and>
+			<isset property="build.dir.root" />
+				<available file="${build.dir.root}/targets" />
+			</and>		
 			<then>
-				<property file="properties"></property>
-				<if>
-					<isset property="init.libs.phingx.deploy.src"></isset>
-					<then>
-						<exec
-							command="svn checkout ${init.libs.phingx.deploy.src} ${project.basedir}/libs/phingx"
-							logoutput="true" checkreturn="true"></exec>
+				<property name="build.targets.dir.exists" value="true" />
+				<importlist>
+					<fileset dir="${build.dir.root}/targets">					<include name="**/*.xml" />
+						</fileset>
+							</importlist>
 					</then>
-				</if>
-			</then>
-			<else>
+				<else>
+			<property name="build.targets.dir.exists" value="false" />
 			</else>
 		</if>
-	</target>
+		<!-- common action -->
 
-	<target name="help" description="Help message">
-		<echo>Welcome to the haru project.</echo>
-		<echo><![CDATA[Available comman list.]]></echo>
-		<echo><![CDATA[	Initialize project build:]]></echo>
-		<echo><![CDATA[		born - Create project build]]></echo>
-		<echo><![CDATA[		get-build - Init propject build]]></echo>
-		<echo><![CDATA[	Deploy command:]]></echo>
-		<echo><![CDATA[		install - Create file structure of your project]]></echo>
-		<echo><![CDATA[		configure - Generate files from templates, make directories]]></echo>
-		<echo><![CDATA[		link - Create/change project symlinks]]></echo>
-		<echo><![CDATA[	Remote deploy command:]]></echo>
-		<echo><![CDATA[		install-all]]></echo>
-		<echo><![CDATA[		configure-all]]></echo>
-		<echo><![CDATA[		link-all]]></echo>
+	<target name="init">
+		<property name="build.tmpldir.root" value="templates/kin" />
+		<property name="build.tmpldir.build" value="${build.tmpldir.root}/build" />
+		<exec command="whoami" outputProperty="build.username" />
 	</target>
 
 </project>

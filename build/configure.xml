@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Project Install" default="configure-main">
-	<target name="configure-main">
+<project name="Configure" default="configure">
+	<target name="configure" depends="init,properties"
+		description="Configure project. Create special files from templates, make config data files.">
 		<echo>Start configure project</echo>
 
-		<phing phingfile="${build.dir.root}/targets/configure.xml" target="before"
-			haltonfailure="true"></phing>
+		<if>
+			<istrue value="${build.targets.dir.exists}" />
+			<then>
+			<phingcall target="configure-before" />
+			</then>
+		</if>
 
 		<!-- Make configs for modules -->
 		<taskdef name="libslice" classname="phing.tasks.ext.LibSliceTask" />
@@ -16,8 +21,12 @@
 		<copy file="${build.config.filename.xml}" tofile="${paths.data}/config.xml" overwrite="true"/>
 		<copy file="${build.config.filename.php}" tofile="${paths.data}/config.php" overwrite="true"/>
 
-		<phing phingfile="${build.dir.root}/targets/configure.xml" target="after"
-			haltonfailure="true"></phing>
+		<if>
+			<istrue value="${build.targets.dir.exists}" />
+			<then>
+				<phingcall target="configure-after" />
+			</then>
+		</if>
 
 		<echo>Finish configure project</echo>
 	</target>

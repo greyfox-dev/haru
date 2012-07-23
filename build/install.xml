@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Project Install" default="install-main">
-	<target name="install-main">
+<project name="Install" default="install">
+	<target name="install" depends="init,properties"
+		description="Install project. Create necessary directories and load libs.">
 		<echo>Start install project</echo>
 
-		<phing phingfile="${build.dir.root}/targets/install.xml" target="before"
-			haltonfailure="true"></phing>
+		<if>
+			<istrue value="${build.targets.dir.exists}" />
+			<then>
+				<phingcall target="install-before" />
+			</then>
+		</if>
 
-		<phingcall target="install-makedir"></phingcall>
-		<phingcall target="install-libs"></phingcall>
+		<phingcall target="install-makedir"/>
+		<phingcall target="install-libs"/>
 
-		<phing phingfile="${build.dir.root}/targets/install.xml" target="after"
-			haltonfailure="true"></phing>
+		<if>
+			<istrue value="${build.targets.dir.exists}" />
+			<then>
+
+<phingcall target="install-after" />
+		</then>
+			</if>
 
 		<echo>Finish install project</echo>
 	</target>
@@ -30,6 +40,13 @@
 	</target>
 
 	<target name="install-libs">
+		<!-- Delete using a fileset -->
+		<delete>
+			<fileset dir="${build.dir.tmp.libitem}">
+				<include name="*.xml" />
+			</fileset>
+		</delete>
+
 		<!-- Делаем файлики из конфига. Режем на item -->
 		<taskdef name="libitem" classname="phing.tasks.ext.LibItemTask" />
 		<libitem srcFile="${build.config.filename.xml}" dstDir="${build.dir.tmp.libitem}" />
@@ -37,8 +54,8 @@
 		<!-- Пробегаем циклом -->
 		<!-- Выкачиваем нужные либы -->
 		<taskdef name="libdeploy" classname="phing.tasks.ext.LibDeployTask" />
-		<libdeploy>
-			<fileset dir="${build.dir.tmp.libitem}" id="lib.items">
+		<libdeploy failonerror="true">
+			<fileset dir="${build.dir.tmp.libitem}" >
 				<include name="*.xml" />
 			</fileset>
 		</libdeploy>

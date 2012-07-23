@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<build_type>develop</build_type>
+	<use_glue>0</use_glue>
+	<paths>
+		<root></root>
+	</paths>
+	<hosts>
+		<root></root>
+	</hosts>
+	<libs>
+		<${born-properties.lib_name}>
+			<modules>
+				<FrontOffice>
+					<DataHelper>
+						<JsCssList>
+							<minify>0</minify>
+						</JsCssList>
+					</DataHelper>
+				</FrontOffice>
+			</modules>
+		</${born-properties.lib_name}>
+	</libs>
+</config>
