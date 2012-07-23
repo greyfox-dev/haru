@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<project name="XmlMerge Test" default="build">
+	<target name="setup">
+		<taskdef name="xmlmerge" classname="phing.tasks.ext.XmlMergeTask" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="${tmp.dir}"/>
+	</target>
+	
+	<target name="build" />
+	
+	<target name="merge0">		
+		<xmlmerge srcFileList="0_old.xml,0_new.xml" dstFile="0_expected.php" />
+	</target>
+	
+	<target name="merge1">		
+		<xmlmerge srcFileList="1_old.xml,1_new.xml" dstFile="1_expected.php" />
+	</target>
+	
+	<target name="merge2">
+		<xmlmerge srcFileList="2_common.xml,2_develop.xml,2_user.xml" dstFile="2_expected.php" />
+	</target>
+	
+	<target name="merge3">		
+		<xmlmerge srcFileList="3_common.xml,3_develop.xml,3_user.xml" dstFile="3_expected.php" />
+	</target>
+	
+	<target name="merge4">		
+		<xmlmerge srcFileList="4_common.xml,4_develop.xml" dstFile="4_expected.php" />
+	</target>
+	
+	<target name="merge5">		
+		<xmlmerge srcFileList="5_common.xml,5_develop.xml" dstFile="5_expected.php" />
+	</target>
+	
+	<target name="merge6">		
+		<xmlmerge srcFileList="6_common.xml,6_develop.xml" dstFile="6_expected.xml" type="xml" />
+	</target>
+	
+	<target name="merge7">		
+		<xmlmerge srcFileList="7_common.xml,7_develop.xml" dstFile="7_expected.php" />
+	</target>
+</project>

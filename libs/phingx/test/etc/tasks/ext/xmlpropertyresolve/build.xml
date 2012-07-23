@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<project name="XmlPropertyResolve Test" default="build">
+	<target name="setup">
+		<taskdef name="xmlpropertyresolve" classname="phing.tasks.ext.XmlPropertyResolveTask" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="${tmp.dir}"/>
+	</target>
+	
+	<target name="build" />
+	
+	<target name="target_0">
+		<xmlpropertyresolve file="0_property.xml" dstFile="0_expected.xml" type="xml"/>
+		<xmlpropertyresolve file="0_property.xml" dstFile="0_expected.php" type="php"/>
+	</target>
+	
+	<target name="target_1">
+		<xmlpropertyresolve file="1_property.xml" dstFile="1_expected.xml" type="xml"/>
+		<xmlpropertyresolve file="1_property.xml" dstFile="1_expected.php" type="php"/>
+	</target>
+	
+	<target name="target_2">
+		<xmlpropertyresolve file="2_property.xml" dstFile="2_expected.xml" type="xml"/>
+		<xmlpropertyresolve file="2_property.xml" dstFile="2_expected.php" type="php"/>
+	</target>
+	
+	<target name="target_3">
+		<xmlpropertyresolve file="3_property.xml" dstFile="3_expected.xml" type="xml"/>
+	</target>
+	
+	<target name="target_4">
+		<xmlpropertyresolve file="4_property.xml" dstFile="4_expected.xml" type="xml"/>
+		<xmlpropertyresolve file="4_property.xml" dstFile="4_expected.php" type="php"/>
+	</target>
+	
+</project>

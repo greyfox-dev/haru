@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<root>
+	<a>root_a</a>
+	<b>
+		<sub_b>root_b - ${root.a}</sub_b>
+	</b>
+	<c>
+		<sub_c>root_c - ${root.b.sub_b} - ${root.a}</sub_c>
+	</c>
+</root>

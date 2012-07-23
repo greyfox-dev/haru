@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PHPUnit>
+	<deploy>
+		<type>none</type>
+		<src>svn+ssh://svn.ru/externals/PHPUnit/3.5.14</src>
+		<dst>/usr/local/lib/php/PHPUnit</dst>
+		<svn>
+			<username>${/config/build/svn/username}</username>
+			<password>${/config/build/svn/password}</password>
+		</svn>
+	</deploy>
+</PHPUnit>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+	<name>Протопроект 22222</name>
+	<build>
+		<miao>
+			<module4>
+				<name>Forth</name>
+				<options>
+					<param>
+						<name>dir</name>
+						<value>/www</value>
+						<set>true</set>
+					</param>
+				</options>
+			</module4>
+		</miao>
+		<lib>
+			<init>2222</init>
+			<start>9999</start>
+		</lib>
+	</build>
+	<temp>
+		<dir>/tmp</dir>
+	</temp>
+</project>

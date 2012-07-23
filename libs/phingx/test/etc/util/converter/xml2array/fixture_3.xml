@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<root>
+	<level_1>
+		<value>a</value>
+		<value>b</value>
+		<value>c</value>
+	</level_1>
+	<value><![CDATA[1]]></value>
+	<value><![CDATA[2]]></value>
+	<value><![CDATA[3]]></value>
+	<value><![CDATA[4]]></value>
+</root>

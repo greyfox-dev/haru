@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<root>
+	<data>
+		<a>a</a>
+		<b>b</b>
+	</data>	
+	<items>${root.data.a}</items>
+	<items>${root.data.b}</items>
+	<tree>
+		<leaf>${root.data.a}</leaf>
+	</tree>
+	<tree>
+		<leaf>${root.items.1}</leaf>
+	</tree>
+</root>

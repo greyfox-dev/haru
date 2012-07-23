@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Miao>
+	<deploy>
+		<type><![CDATA[svn]]></type>
+		<src><![CDATA[svn://]]></src>
+		<dst><![CDATA[/www/project.dv]]></dst>
+		<svn>
+			<username>example</username>
+			<password></password>
+		</svn>
+	</deploy>
+</Miao>

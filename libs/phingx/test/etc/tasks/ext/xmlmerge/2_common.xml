@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project>
+	<name>Протопроект</name>
+	<build>
+		<miao>
+			<module1>
+				<name>First</name>
+			</module1>
+			<module2>
+				<name>Second</name>
+			</module2>
+			<module3>
+				<name>Third</name>
+			</module3>
+			<module4>
+				<name>Forth</name>
+				<options>
+					<param>
+						<name>dir</name>
+						<value>/www</value>
+					</param>
+				</options>
+			</module4>
+		</miao>
+		<lib>
+			<init>1111</init>
+		</lib>
+	</build>
+	<temp>
+		<dir>/www/PROJECT/tmp</dir>
+	</temp>
+</project>

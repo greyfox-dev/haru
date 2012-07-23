@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<project name="Lib Item Test" default="build">
+	<taskdef name="libitem" classname="phing.tasks.ext.LibItemTask" />
+	<target name="build">
+	</target>
+	<target name="test1">
+		<libitem srcFile="config_1.xml" dstDir="${tmp.dir}" />
+	</target>
+	<target name="test2">
+		<libitem srcFile="config_2.xml" dstDir="${tmp.dir}" />
+	</target>
+	<target name="test3">
+		<libitem srcFile="config_3.xml" dstDir="${tmp.dir}" />
+	</target>
+</project>

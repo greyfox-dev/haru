@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Miao>
+	<deploy>
+		<type><![CDATA[ssh+svn zxczxc]]></type>
+		<src><![CDATA[svn+ssh://svn.ru/miao/trunk]]></src>
+		<dst><![CDATA[/www/project.dv/libs]]></dst>
+		<svn>
+			<username><![CDATA[example]]></username>
+			<password><![CDATA[]]></password>
+		</svn>
+	</deploy>
+</Miao>
