@@ -1,3 +1,0 @@
-export PHING_BIN=phing
-export CRIB_DIR=/www/crib.git
-export BUILD_DIR=/www/build/r2phing

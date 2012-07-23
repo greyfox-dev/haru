@@ -1,3 +1,0 @@
-build.dir.root=${env.BUILD_DIR}
-build.crib.dir=${env.CRIB_DIR}
-build.phing.bin=${env.PHING_BIN}
