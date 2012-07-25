@@ -1,13 +1,17 @@
 <?php
-require_once '#phing:libs.${born-properties.lib_name}.deploy.dst#/scripts/bootstrap.php';
+require_once '#phing:libs.Kin.deploy.dst#/scripts/bootstrap.php';
 
 function help()
 {
 	$mes = array();
+	$mes[] = "Welcome to miao console...";
 	$mes[] = "-f -- search test file";
 	$mes[] = "-d -- resolve name to dir and trying found test file in dir";
 	$mes[] = "--no-run -- ";
 	$mes[] = "--help/-h -- print help";
+	$mes[] = "";
+	$mes[] = "Run all miao tests script with params \"test.php -d Miao\"";
+	$mes[] = "";
 
 	$message = implode( "\n", $mes );
 	echo $message;
@@ -18,7 +22,8 @@ if ( isset( $_SERVER[ 'argc' ] ) )
 {
 	$opts = array();
 	$remainingArgs = array();
-	foreach ( $_SERVER[ 'argv' ] as $key => $value )
+	$argv = $_SERVER[ 'argv' ];
+	foreach ( $argv as $key => $value )
 	{
 		if ( 0 == $key )
 		{
@@ -44,7 +49,13 @@ if ( isset( $_SERVER[ 'argc' ] ) )
 				$remainingArgs[] = $value;
 		}
 	}
-
-	$console = new Miao_PHPUnit_Console( $opts, $remainingArgs );
-	$console->run();
+	if ( empty( $opts ) )
+	{
+		help();
+	}
+	else
+	{
+		$console = new Miao_PHPUnit_Console( $opts, $remainingArgs );
+		$console->run();
+	}
 }

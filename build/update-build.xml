@@ -6,22 +6,30 @@
 			<available file="${build.dir.root}/.svn"></available>
 			<then>
 				<property name="update-build.command" value="svn update ${build.dir.root}"></property>
+			</then>
+			<elseif>
+				<available file="${build.dir.root}/.hg" />
+				<then>
+					<property name="update-build.command" value="cd ${build.dir.root}; hg pull -u; cd -;"></property>
+				</then>
+			</elseif>
+			<elseif>
+				<available file="${build.dir.root}/.git" />
+				<then>
+					<property name="update-build.command" value="cd ${build.dir.root}; git pull; cd -;"></property>
+				</then>
+			</elseif>
+			<else>
+				<echo>Other repos doesn't support</echo>
+			</else>
+		</if>
+
+		<if>
+			<isset property="update-build.command"></isset>
+			<then>
 				<echo>${update-build.command}</echo>
 				<exec command="${update-build.command}" logoutput="true"></exec>
 			</then>
-			<else>
-                <if>
-                    <available file="${build.dir.root}/.hg" />
-                    <then>
-                        <property name="update-build.command" value="cd ${build.dir.root}; hg pull -u; cd -;"></property>
-                        <echo>${update-build.command}</echo>
-                        <exec command="${update-build.command}" logoutput="true"></exec>
-                    </then>
-                    <else>
-    				    <echo>Other repos doesn't support</echo>
-                    </else>
-                </if>
-			</else>
-		</if>		
+		</if>
 	</target>
 </project>

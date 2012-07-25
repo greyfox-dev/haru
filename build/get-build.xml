@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project name="Get Build" default="get-build"
+<project default="get-build"
 	description="Tasks for upload project build and run depends operation">
 	<target name="get-build" depends="init,get-build-properties"
 		description="Setup project by high-level project build">

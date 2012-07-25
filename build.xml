@@ -3,13 +3,14 @@
 
 	<!-- common action -->
 	<includepath classpath="${project.basedir}/libs/phing/classes" />
-	<includepath classpath="${project.basedir}/libs/phingx/classes" />	
+	<includepath classpath="${project.basedir}/libs/phingx/classes" />
+	<includepath classpath="${project.basedir}/libs/phingx/classes/phing" />
 
 	<taskdef name="importlist" classname="phing.tasks.ext.ImportListTask" />
 	<taskdef name="verboseexec" classname="phing.tasks.ext.VerboseExecTask" />
 	
 	<importlist>
-		<fileset dir="build">
+		<fileset dir="${project.basedir}/build">
 			<include name="**/*.xml" />
 		</fileset>
 	</importlist>

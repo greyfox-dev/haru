@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Install" default="install">
+<project default="install">
 	<target name="install" depends="init,properties"
 		description="Install project. Create necessary directories and load libs.">
 		<echo>Start install project</echo>
 
 		<if>
-			<istrue value="${build.targets.dir.exists}" />
+			<available file="${build.dir.root}/targets/install.xml" />
 			<then>
 				<phingcall target="install-before" />
 			</then>
 		</if>
-
-		<phingcall target="install-makedir"/>
-		<phingcall target="install-libs"/>
+		<phingcall target="install-makedir" />
+		<phingcall target="install-libs" />
 
 		<if>
-			<istrue value="${build.targets.dir.exists}" />
+			<available file="${build.dir.root}/targets/install.xml" />
 			<then>
-
-<phingcall target="install-after" />
-		</then>
-			</if>
-
+				<phingcall target="install-after" />
+			</then>
+		</if>
 		<echo>Finish install project</echo>
 	</target>
 
@@ -55,7 +52,7 @@
 		<!-- Выкачиваем нужные либы -->
 		<taskdef name="libdeploy" classname="phing.tasks.ext.LibDeployTask" />
 		<libdeploy failonerror="true">
-			<fileset dir="${build.dir.tmp.libitem}" >
+			<fileset dir="${build.dir.tmp.libitem}">
 				<include name="*.xml" />
 			</fileset>
 		</libdeploy>

@@ -3,9 +3,9 @@
 	<libs>
 		<caterjs>			
 			<deploy>
-				<type><![CDATA[svn]]></type>
-				<tag><![CDATA[trunk]]></tag>
-				<src>https://github.com/clexit/CaterJS.git/${config.libs.caterjs.deploy.tag}</src>
+				<type><![CDATA[git]]></type>
+				<tag><![CDATA[master]]></tag>
+				<src>http://github.com/clexit/CaterJS.git</src>
 				<dst>${config.paths.libs}/catterjs/${config.libs.caterjs.deploy.tag}</dst>
 			</deploy>
 			<configure>

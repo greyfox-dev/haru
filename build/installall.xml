@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project>
+<project name="Install all" default="installall">
 	<target name="installall" depends="init,properties">
 		<taskdef name="remote" classname="phing.tasks.ext.RemoteTask" />
 		<remote target="update-build" host="${hosts.masters}" />

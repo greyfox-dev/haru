@@ -147,7 +147,6 @@
 	</target>
 
 	<target name="born-project">
-		<!-- todo: del trunk when will move to git or mercurial -->
 		<copy
 			todir="${born-properties.paths.root}/libs/${born-properties.project_name}">
 			<fileset dir="${build.tmpldir.root}/libs/kin" />
@@ -156,6 +155,7 @@
 			</filterchain>
 		</copy>
 
+		<chmod file="${born-properties.paths.root}/build/bin/phing" mode="0555" />
 		<property name="born-project.setup.command"
 			value="${born-properties.paths.root}/build/bin/phing install configure link -Dbt=D -Dbu=${build.username}" />
 		<echo>Setup cmd: ${born-project.setup.command}</echo>

@@ -4,9 +4,9 @@
 		<Miaox>
 			<plugin>Standart</plugin>
 			<deploy>
-				<type>svn</type>
-				<tag>trunk</tag>
-				<src>http://svn.rbc.ru/ppc/miaox/${config.libs.Miaox.deploy.tag}</src>
+				<type><![CDATA[git]]></type>
+				<tag><![CDATA[master]]></tag>
+				<src>http://github.com/TheRatG/miaox.git</src>
 				<dst>${config.paths.libs}/miaox/${config.libs.Miaox.deploy.tag}</dst>
 			</deploy>
 			<configure>

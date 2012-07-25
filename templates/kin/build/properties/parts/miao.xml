@@ -4,9 +4,9 @@
 		<Miao>
 			<plugin>Standart</plugin>
 			<deploy>
-				<type><![CDATA[svn]]></type>
-				<tag><![CDATA[branches/Dev_3.0]]></tag>
-				<src>http://svn.rbc.ru/ppc/miao/${config.libs.Miao.deploy.tag}</src>
+				<type><![CDATA[git]]></type>
+				<tag><![CDATA[master]]></tag>
+				<src>http://github.com/TheRatG/miao.git</src>
 				<dst>${config.paths.libs}/miao/${config.libs.Miao.deploy.tag}</dst>
 				<current>${config.paths.libs}/miao/current</current>
 				<keep_old_versions><![CDATA[2]]></keep_old_versions>

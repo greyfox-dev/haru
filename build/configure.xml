@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Configure" default="configure">
+<project default="configure">
 	<target name="configure" depends="init,properties"
 		description="Configure project. Create special files from templates, make config data files.">
 		<echo>Start configure project</echo>
 
-		<if>
-			<istrue value="${build.targets.dir.exists}" />
+		<if>			
+			<available file="${build.dir.root}/targets/configure.xml" />
 			<then>
-			<phingcall target="configure-before" />
+				<phingcall target="configure-before" />
 			</then>
 		</if>
 
@@ -16,13 +16,15 @@
 		<libslice filename="${build.config.filename.xml}" />
 
 		<taskdef name="libconfigure" classname="phing.tasks.ext.LibConfigureTask" />
-		<libconfigure config="${build.config.filename.xml}" />		
+		<libconfigure config="${build.config.filename.xml}" />
 
-		<copy file="${build.config.filename.xml}" tofile="${paths.data}/config.xml" overwrite="true"/>
-		<copy file="${build.config.filename.php}" tofile="${paths.data}/config.php" overwrite="true"/>
+		<copy file="${build.config.filename.xml}" tofile="${paths.data}/config.xml"
+			overwrite="true" />
+		<copy file="${build.config.filename.php}" tofile="${paths.data}/config.php"
+			overwrite="true" />
 
 		<if>
-			<istrue value="${build.targets.dir.exists}" />
+			<available file="${build.dir.root}/targets/configure.xml" />
 			<then>
 				<phingcall target="configure-after" />
 			</then>

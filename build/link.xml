@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Project Install" default="link-main">
-	<target name="link-main">
-		<echo>Start configure project</echo>
+<project default="link">
 
-		<phing phingfile="${build.dir.root}/targets/link.xml" target="before"
-			haltonfailure="true"></phing>
+	<target name="link" depends="init,properties"
+		description="Link project. Create symbolic links.">
+		<echo>Start link project</echo>
+
+		<if>
+			<istrue value="${build.targets.dir.exists}"></istrue>
+			<then>
+				<phingcall target="link-before" />
+			</then>
+		</if>
 
 		<!-- Make configs for modules -->
 		<taskdef name="liblink" classname="phing.tasks.ext.LibLinkTask" />
 		<liblink config="${build.config.filename.xml}" />
 
-		<phing phingfile="${build.dir.root}/targets/link.xml" target="after"
-			haltonfailure="true"></phing>
+		<if>
+			<istrue value="${build.targets.dir.exists}"></istrue>
+			<then>
+				<phingcall target="link-after" />
+			</then>
+		</if>
 
-		<echo>Finish configure project</echo>
+		<echo>Finish link project</echo>
 	</target>
 
 </project>

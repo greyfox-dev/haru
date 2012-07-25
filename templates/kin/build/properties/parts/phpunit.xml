@@ -4,11 +4,10 @@
 		<PHPUnit>
 			<plugin>PHPUnit</plugin>
 			<deploy>
-				<type><![CDATA[svn]]></type>
+				<type><![CDATA[git]]></type>
 				<tag><![CDATA[branches/3.6]]></tag>
-				<src><![CDATA[https://TheRatG@github.com/TheRatG/phpunit.git/${config.libs.PHPUnit.deploy.tag}]]></src>				
-				<dst>${config.paths.libs}/phpunit/${config.libs.PHPUnit.deploy.tag}</dst>
-				<current>${config.paths.libs}/phpunit/current</current>				
+				<src>http://github.com/TheRatG/phpunit.git</src>				
+				<dst>${config.paths.libs}/phpunit/${config.libs.PHPUnit.deploy.tag}</dst>								
 			</deploy>
 			<configure></configure>
 			<link></link>
