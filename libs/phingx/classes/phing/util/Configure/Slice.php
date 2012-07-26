@@ -71,7 +71,7 @@ class Configure_Slice
 			{
 				$modules = clone $config->modules;
 				unset( $config->modules );
-				foreach ( $modules->children() as $node )
+				foreach ( ( array ) $modules->children() as $node )
 				{
 					$this->_sxmlAppend( $config, $node );
 				}
@@ -118,7 +118,7 @@ class Configure_Slice
 	public static function getLibPathList( $xml )
 	{
 		$libsList = array();
-		foreach ( $xml->children() as $lib )
+		foreach ( ( array ) $xml->children() as $lib )
 		{
 			$libName = $lib->getName();
 			$libDstDir = strval( $lib->deploy->dst );
