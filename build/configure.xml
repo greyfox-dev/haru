@@ -18,11 +18,6 @@
 		<taskdef name="libconfigure" classname="phing.tasks.ext.LibConfigureTask" />
 		<libconfigure config="${build.config.filename.xml}" />
 
-		<copy file="${build.config.filename.xml}" tofile="${paths.data}/config.xml"
-			overwrite="true" />
-		<copy file="${build.config.filename.php}" tofile="${paths.data}/config.php"
-			overwrite="true" />
-
 		<if>
 			<available file="${build.dir.root}/targets/configure.xml" />
 			<then>

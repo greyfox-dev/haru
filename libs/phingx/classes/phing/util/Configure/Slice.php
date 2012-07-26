@@ -11,10 +11,15 @@ require_once 'phing/util/Converter.php';
  */
 class Configure_Slice
 {
+
 	private $_rootTagName = 'config';
+
 	private $_configDirModulesName = 'modules';
+
 	private $_configDirName = 'data';
+
 	private $_fileXmlBasename = 'config.xml';
+
 	private $_filePhpBasename = 'config.php';
 
 	private $_xmlObj = null;
@@ -35,7 +40,19 @@ class Configure_Slice
 
 	public function run()
 	{
-		$result = $this->_runLibs();
+		$result1 = $this->_runMain();
+		$result2 = $this->_runLibs();
+		$result = array_merge_recursive( $result1, $result2 );
+		return $result;
+	}
+
+	protected function _runMain()
+	{
+		$xml = $this->_xmlObj;
+		$config = clone $xml;
+		$libDir = ( string ) $config->paths->root;
+		unset( $config->libs );
+		$result[ 'Main' ] = $this->_generateSlice( $libDir . '/data', $config );
 		return $result;
 	}
 
@@ -44,62 +61,31 @@ class Configure_Slice
 		$xml = $this->_xmlObj;
 
 		$result = array();
-
 		$libsList = self::getLibPathList( $xml->libs );
-
 		foreach ( $libsList as $libName => $libDir )
 		{
-			$modules = $xml->libs->$libName->modules;
-			if ( $modules )
+			$config = clone $xml->libs->$libName;
+			unset( $config->configure );
+			unset( $config->link );
+			if ( $config->modules )
 			{
-				foreach ( $modules->children() as $module )
+				$modules = clone $config->modules;
+				unset( $config->modules );
+				foreach ( $modules->children() as $node )
 				{
-					$moduleName = $module->getName();
-
-					$moduleDir1 = sprintf( '%s/%s/%s', $libDir, $this->_configDirModulesName, $moduleName );
-					$moduleDir2 = sprintf( '%s/%s', $libDir, $moduleName );
-
-					$moduleDir = '';
-					if ( file_exists( $moduleDir1 ) )
-					{
-						$moduleDir = $moduleDir1;
-					}
-					else if ( file_exists( $moduleDir2 ) )
-					{
-						$moduleDir = $moduleDir2;
-					}
-					else
-					{
-						$message = sprintf( 'Module (%s) not found by path %s, %s', $moduleName, $moduleDir1, $moduleDir2 );
-						throw new BuildException( $message );
-					}
-
-					$configDir = sprintf( '%s/%s', $moduleDir, $this->_configDirName );
-
-					$item = $this->_generateSlice( $configDir, $module );
-
-					$result[ $libName ][ $moduleName ] = $item;
+					$this->_sxmlAppend( $config, $node );
 				}
 			}
+			$result[ $libName ] = $this->_generateSlice( $libDir . '/data', $config );
 		}
 		return $result;
 	}
 
-	protected function _getLibs( $xml )
+	protected function _sxmlAppend( SimpleXMLElement $to, SimpleXMLElement $from )
 	{
-		$libsList = array();
-		foreach ( $xml->children() as $lib )
-		{
-			$libName = $lib->getName();
-			$libDstDir = strval( $lib->deploy->dst );
-
-			if ( $libName && $libDstDir )
-			{
-				$libsList[ $libName ] = $libDstDir;
-			}
-		}
-
-		return $libsList;
+		$toDom = dom_import_simplexml( $to );
+		$fromDom = dom_import_simplexml( $from );
+		$toDom->appendChild( $toDom->ownerDocument->importNode( $fromDom, true ) );
 	}
 
 	protected function _generateSlice( $dstDir, $xml )

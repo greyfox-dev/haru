@@ -29,7 +29,7 @@ function autoloadInit( $config )
 		}
 	}
 }
-$config = include '#phing:libs.${born-properties.lib_name}.deploy.dst#/data/config.php';
+$config = include '#phing:libs.${born-properties.lib_name}.deploy.dst#/data/config_map.php';
 autoloadInit( $config );
 
 Miao_Autoload::register( $config['libs'] );

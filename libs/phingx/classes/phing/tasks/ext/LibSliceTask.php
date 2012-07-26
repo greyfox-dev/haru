@@ -33,15 +33,11 @@ class LibSliceTask extends Task
 
 		foreach ( $result as $libName => $item )
 		{
-			$msg = sprintf( 'Generated %s files for lib %s',
-				count( $item ) * 2, $libName );
+			$msg = sprintf( 'Generated %s files for lib %s:',
+				count( $item ) , $libName );
 			$this->log( $msg );
-			foreach ( $item as $moduleName => $files )
-			{
-				$msg = sprintf( "\tModule %s:\n\t\t - %s", $moduleName,
-					implode( "\n\t\t - ", $files ) );
+			$msg = "\t - " . implode( "\n\t\t - ", $item );
 				$this->log( $msg );
-			}
 		}
 
 		$msg = 'End slice';

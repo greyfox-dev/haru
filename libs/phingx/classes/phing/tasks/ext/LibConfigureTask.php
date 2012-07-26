@@ -82,7 +82,7 @@ class LibConfigureTask extends Task
 
 				if ( $lib->configure->depends )
 				{
-					$libConfigFilename = ( string ) $lib->deploy->dst . '/data/config.php';
+					$libConfigFilename = ( string ) $lib->deploy->dst . '/data/config_map.php';
 					$this->_processDepends( $libName, $lib->configure->depends, $libConfigFilename );
 				}
 			}
