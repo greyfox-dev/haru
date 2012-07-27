@@ -177,8 +177,9 @@
 		</copy>
 
         <copy file="${build.tmpldir.build}/bin/phing" tofile="${get-build.deploy.dst}/bin/phing" />
+        <chmod file="${get-build.deploy.dst}/bin/phing" mode="0555" />
+        
         <copy file="${build.tmpldir.build}/bin/prop" tofile="${get-build.deploy.dst}/bin/prop" />
-
         <propertyprompt propertyName="get-build.deploy.setup"
             promptText="Setup project? (yes or no)" defaultValue="no" />
         <property name="get-build.deploy.setup.command" value="${get-build.deploy.dst}/bin/phing install configure link" />

@@ -1,5 +1,5 @@
 <?php
-require_once '#phing:libs.Kin.deploy.dst#/scripts/bootstrap.php';
+require_once '#phing:libs.${born-properties.lib_name}.deploy.dst#/scripts/bootstrap.php';
 
 function help()
 {

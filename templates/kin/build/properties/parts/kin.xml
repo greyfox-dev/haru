@@ -45,6 +45,9 @@
 				</files>
 				<dirs>
 					<item>
+						<dir>${config.libs.${born-properties.lib_name}.deploy.dst}/scripts</dir>
+					</item>
+					<item>
 						<dir>${config.libs.${born-properties.lib_name}.deploy.dst}/data</dir>
 					</item>
 				</dirs>
