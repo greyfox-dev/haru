@@ -13,17 +13,21 @@ Born in the spring
 +
 ----
 wget https://github.com/TheRatG/haru/zipball/master -O haru.zip;
-unzip crib.zip;
+unzip haru.zip;
 cd ...
 ----
 
 == Создание нового проекта
+Создайте два репозитория для вашего проекта.
+<project>_build - здесь будут храниться опции для разворачивания вашего проекта
+<project> - здесь будет храниться библиотека (lib) проекта
+
 Запустите команду
-[source,shell]
+[source]
 ------------
 ./phing born -Dlib=<project_name> -Dhost=<project_host> -Dpath=<project_root>
 ------------
-для того чтобы получить новый проект.
+для того чтобы создать новый проект.
 
 == PhingX
 
