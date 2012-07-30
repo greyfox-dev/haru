@@ -4,9 +4,9 @@
 		<${born-properties.lib_name}>
 			<plugin>Standart</plugin>
 			<deploy>
-				<type>none</type>
-				<tag>${born-properties.lib.tag}</tag>
-				<src></src>
+				<type>${born-repo-properties.lib.type}</type>
+				<tag>${born-repo-properties.lib.tag}</tag>
+				<src>${born-repo-properties.lib.url}</src>
 				<dst>${config.paths.libs}/${born-properties.project_name}/${config.libs.${born-properties.lib_name}.deploy.tag}</dst>
 				<current>${config.paths.libs}/${born-properties.project_name}/current</current>
 			</deploy>

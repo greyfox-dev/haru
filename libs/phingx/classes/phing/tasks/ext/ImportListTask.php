@@ -64,9 +64,6 @@ class ImportListTask extends Task
 			$importTask->setLocation( $this->getLocation() );
 			$importTask->setFile( $filename );
 			$importTask->main();
-
-			$msg = sprintf( 'Import file: %s', $filename );
-			$this->log($msg);
 		}
 	}
 

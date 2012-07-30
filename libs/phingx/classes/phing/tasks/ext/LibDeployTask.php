@@ -1,17 +1,22 @@
 <?php
 require_once 'phing/Task.php';
 require_once 'phing/tasks/system/ExecTask.php';
-require_once 'phing/tasks/ext/VerboseExecTask.php';
 
 /**
  * Super installer
  */
 class LibDeployTask extends Task
 {
+
 	protected $failonerror = false;
+
 	protected $filesets = array();
+
 	protected $quiet = false;
+
 	protected $isTest = false;
+
+	protected $_execTask;
 
 	public function setFailonerror( $value )
 	{
@@ -33,6 +38,9 @@ class LibDeployTask extends Task
 
 	public function init()
 	{
+		$this->_execTask = new ExecTask();
+		$this->_execTask->setPassthru( true );
+		$this->_execTask->setLevel( 'info' );
 		return true;
 	}
 
@@ -76,7 +84,6 @@ class LibDeployTask extends Task
 
 		$msg = 'Complete';
 		$this->log( $msg );
-
 	}
 
 	protected function _deployItem( $name, $config )
@@ -118,7 +125,7 @@ class LibDeployTask extends Task
 		$password = ( string ) $config->deploy->svn->password;
 		$isExport = ( bool ) $config->deploy->export;
 		$bin = $this->project->getProperty( 'system.bin.svn' );
-		if ( empty ( $bin ) )
+		if ( empty( $bin ) )
 		{
 			$bin = 'svn';
 		}
@@ -132,7 +139,13 @@ class LibDeployTask extends Task
 		$toDir = $this->_geFullPath( $toDir );
 
 		$commandAr = array();
-		if ( $isExport )
+		$isUpdate = false;
+		if ( file_exists( $toDir ) && is_dir( $toDir ) && file_exists( $toDir . '/.svn' ) )
+		{
+			$commandAr[] = sprintf( '%s update', $bin );
+			$isUpdate = true;
+		}
+		else if ( $isExport )
 		{
 			$commandAr[] = sprintf( '%s export', $bin );
 		}
@@ -140,6 +153,7 @@ class LibDeployTask extends Task
 		{
 			$commandAr[] = sprintf( '%s checkout', $bin );
 		}
+
 		if ( $username )
 		{
 			$commandAr[] = sprintf( '--username "%s"', $username );
@@ -148,21 +162,20 @@ class LibDeployTask extends Task
 		{
 			$commandAr[] = sprintf( '--password "%s"', $password );
 		}
-		$commandAr[] = sprintf( '"%s" "%s"', $repositoryUrl, $toDir );
-
-		$command = implode( ' ', $commandAr );
-		$commandLog = $command;
-		$this->log( $commandLog );
 
 		$returnProp = 'libdeploy.svn.return';
-		$obj = new VerboseExecTask();
-		$obj->setProject( $this->project );
-		$obj->setCommand( $command );
-		$obj->setReturnProperty( $returnProp );
-		$obj->main();
-
-		$res = $this->project->getProperty( $returnProp );
-
+		$outputProp = 'libdeploy.svn.output';
+		if ( !$isUpdate )
+		{
+			$commandAr[] = sprintf( '"%s" "%s"', $repositoryUrl, $toDir );
+			$command = implode( ' ', $commandAr );
+			$this->_exec( $command, $returnProp, $outputProp );
+		}
+		else
+		{
+			$command = implode( ' ', $commandAr );
+			$this->_exec( $command, $returnProp, $outputProp, $toDir );
+		}
 		$msg = sprintf( "\tDeploy by svn complete" );
 		$this->log( $msg );
 	}
@@ -179,7 +192,7 @@ class LibDeployTask extends Task
 		$repositoryUrl = ( string ) $config->deploy->src;
 		$repositoryUrl = trim( $repositoryUrl );
 		$bin = $this->project->getProperty( 'system.bin.git' );
-		if ( empty ( $bin ) )
+		if ( empty( $bin ) )
 		{
 			$bin = 'git';
 		}
@@ -194,14 +207,19 @@ class LibDeployTask extends Task
 		$toDir = trim( $toDir );
 		$toDir = $this->_geFullPath( $toDir );
 
+		$returnProp = 'libdeploy.git.return';
+		$outputProp = 'libdeploy.git.output';
+
 		if ( file_exists( $toDir ) && is_dir( $toDir ) && file_exists( $toDir . '/.git' ) )
 		{
 			$command = '';
 			if ( !empty( $branch ) )
 			{
-				$command .= sprintf( 'cd %s; %s checkout "%s";',$toDir , $bin, $branch );
+				$command = sprintf( '%s checkout "%s";', $bin, $branch );
+				$this->_exec( $command, $returnProp, $outputProp, $toDir );
 			}
-			$command .= sprintf( '%s pull %s', $bin, $toDir );
+			$command = sprintf( '%s pull %s', $bin, $toDir );
+			$this->_exec( $command, $returnProp, $outputProp, $toDir );
 		}
 		else
 		{
@@ -210,26 +228,7 @@ class LibDeployTask extends Task
 			{
 				$command = $command . ' --branch ' . $branch;
 			}
-		}
-
-		$this->log( $command );
-
-		$returnProp = 'libdeploy.git.return';
-		$outputProp = 'libdeploy.git.output';
-		$obj = new ExecTask();
-		$obj->setProject( $this->project );
-		$obj->setCommand( $command );
-		$obj->setPassthru( true );
-		$obj->setReturnProperty( $returnProp );
-		$obj->setOutputProperty( $outputProp );
-		$obj->main();
-
-		$res = $this->project->getProperty( $returnProp );
-		$output = $this->project->getProperty( $outputProp );
-
-		if ( 0 !== $res )
-		{
-			throw new BuildException( $output );
+			$this->_exec( $command, $returnProp, $outputProp );
 		}
 
 		$msg = sprintf( "\tDeploy by git complete" );
@@ -251,7 +250,7 @@ class LibDeployTask extends Task
 		$repositoryUrl = ( string ) $config->deploy->src;
 		$repositoryUrl = trim( $repositoryUrl );
 		$bin = $this->project->getProperty( 'system.bin.hg' );
-		if ( empty ( $bin ) )
+		if ( empty( $bin ) )
 		{
 			$bin = 'hg';
 		}
@@ -284,7 +283,7 @@ class LibDeployTask extends Task
 
 		if ( file_exists( $toDir ) && is_dir( $toDir ) && file_exists( $toDir . '/.hg' ) )
 		{
-            $branchSuffix = empty( $branch ) ? '' : sprintf( ' -r %s', $branch );
+			$branchSuffix = empty( $branch ) ? '' : sprintf( ' -r %s', $branch );
 			$command = sprintf( 'cd %s; %s pull -u %s; cd -; ', $toDir, $bin, $branchSuffix );
 		}
 		else
@@ -294,26 +293,6 @@ class LibDeployTask extends Task
 			{
 				$command = $command . ' -r ' . $branch;
 			}
-		}
-
-		$this->log( $command );
-
-		$returnProp = 'libdeploy.hg.return';
-		$outputProp = 'libdeploy.hg.output';
-		$obj = new ExecTask();
-		$obj->setProject( $this->project );
-		$obj->setCommand( $command );
-		$obj->setPassthru( true );
-		$obj->setReturnProperty( $returnProp );
-		$obj->setOutputProperty( $outputProp );
-		$obj->main();
-
-		$res = $this->project->getProperty( $returnProp );
-		$output = $this->project->getProperty( $outputProp );
-
-		if ( 0 !== $res )
-		{
-			throw new BuildException( $output );
 		}
 
 		$msg = sprintf( "\tDeploy by mercurial complete" );
@@ -329,5 +308,32 @@ class LibDeployTask extends Task
 		}
 		$result = $file->getPath();
 		return $result;
+	}
+
+	protected function _exec( $command, $returnProp, $outputProp, $dir = '' )
+	{
+		$obj = $this->_execTask;
+		$returnProp = 'libdeploy.hg.return';
+		$outputProp = 'libdeploy.hg.output';
+		$obj->setProject( $this->project );
+		$obj->setReturnProperty( $returnProp );
+		$obj->setOutputProperty( $outputProp );
+
+		if ( !empty( $dir ) )
+		{
+			$dir = new PhingFile( $dir );
+			$obj->setDir( $dir );
+		}
+
+		$obj->setCommand( $command );
+		$obj->main();
+
+		$res = $this->project->getProperty( $returnProp );
+		$output = $this->project->getProperty( $outputProp );
+
+		if ( 0 !== $res )
+		{
+			throw new BuildException( $output );
+		}
 	}
 }

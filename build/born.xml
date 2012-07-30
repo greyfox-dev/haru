@@ -2,13 +2,7 @@
 <project default="born">
 
 	<target name="born" depends="init,born-properties" description="Create new project">
-		<phingcall target="born-build">
-			<property name="born-build.project_name" value="${born-properties.project_name}" />
-			<property name="born-build.lib_name" value="${born-properties.lib_name}" />
-			<property name="born-build.paths.build.dst" value="${born-properties.paths.root}/build" />
-			<property name="born-build.hosts.public" value="${born-properties.hosts.public}" />
-			<property name="born-build.settingsCorrect" value="${born-properties.isCorrect}" />
-		</phingcall>
+		<phingcall target="born-build" />
 		<phingcall target="born-project" />
 	</target>
 
@@ -97,10 +91,22 @@
 				<fail message="Please, start again." />
 			</then>
 		</if>
+		
+		<property name="born-properties.lib.tag" value="trunk" />
+		<if>
+			<isset property="born-repo-properties.lib.tag" />
+			<then>
+				<property name="born-properties.lib.tag" value="${born-repo-properties.lib.tag}" override="true" />
+			</then>
+		</if>		
 	</target>
 
 	<target name="born-build">
-
+		<property name="born-build.project_name" value="${born-properties.project_name}" />
+		<property name="born-build.lib_name" value="${born-properties.lib_name}" />
+		<property name="born-build.paths.build.dst" value="${born-properties.paths.root}/build" />
+		<property name="born-build.hosts.public" value="${born-properties.hosts.public}" />
+		<property name="born-build.settingsCorrect" value="${born-properties.isCorrect}" />
 		<if>
 			<available file="${born-build.paths.build.dst}" />
 			<then>
@@ -148,7 +154,7 @@
 
 	<target name="born-project">
 		<copy
-			todir="${born-properties.paths.root}/libs/${born-properties.project_name}">
+			todir="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}">
 			<fileset dir="${build.tmpldir.root}/libs/kin" />
 			<filterchain>
 				<expandproperties />
@@ -160,14 +166,14 @@
 			value="${born-properties.paths.root}/build/bin/phing install configure link -Dbt=D -Dbu=${build.username}" />
 		<echo>Setup cmd: ${born-project.setup.command}</echo>
 		<propertyprompt propertyName="born-project.setup.isContinue"
-			promptText="Setup project automatically? (yes or no)" defaultValue="yes" />
+			promptText="Setup project automatically? (yes or no)" defaultValue="yes" useExistingValue='true' />
 
 		<if>
 			<istrue value="${born-project.setup.isContinue}" />
 			<then>
 				<echo>waiting...</echo>
-				<verboseexec command="${born-project.setup.command}"
-					checkreturn="true" />
+				<exec command="${born-project.setup.command}"
+					passthru="true" checkreturn="true" level="info" />
 			</then>
 			<else>
 				<phingcall target="help-setup">

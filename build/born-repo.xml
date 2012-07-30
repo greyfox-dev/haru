@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project default="born-repo">
+	<target name="born-repo" depends="init,born-repo-properties,born-properties,born-build" description="Create new project">
+		<phingcall target="born-repo-project-setup" />
+		<phingcall target="born-repo-high-build-generate" />
+		<phingcall target="born-repo-high-build-repos-init" />
+		<phingcall target="born-repo-project-repos-init" />
+		<echo></echo>
+		<echo>----------------------------------------------------------------------------------</echo>		
+		<echo>Please add and commit (push) files in repos</echo>
+		<echo>High level build repos: ${born-properties.paths.root}/build</echo>
+		<echo>High project repos: ${born-repo-project-repos-init.lib.dst}</echo>
+		<echo>After that</echo>
+		<echo>Check user properties: vi ${born-properties.paths.root}/build/properties/extends/users/${build.username}.xml</echo>
+		<echo>Install project: ${born-properties.paths.root}/build/bin/phing install</echo>
+		<echo>If install passed: ${born-properties.paths.root}/build/bin/phing configure link</echo>
+		<echo>----------------------------------------------------------------------------------</echo>
+	</target>
+	
+	<target name="born-repo-properties">		
+		<property name="born-project.setup.isContinue" value="0" />
+		<if>
+			<isset property="hbt" />
+			<then>
+				<property name="born-repo-properties.high-build.type" value="${hbt}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="born-repo-properties.high-build.type"
+					defaultValue="git" promptText="Enter your high build repos type (git|svn)" />
+			</else>
+		</if>
+		<if>
+			<isset property="hbu" />
+			<then>
+				<property name="born-repo-properties.high-build.url" value="${hbu}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="born-repo-properties.high-build.url"
+					promptText="Enter your high build repos url" />
+			</else>
+		</if>
+		
+		<if>
+			<isset property="hbt" />
+			<then>
+				<property name="born-repo-properties.lib.type" value="${lt}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="born-repo-properties.lib.type"
+					defaultValue="git" promptText="Enter your lib repos type (git|svn)" />
+			</else>
+		</if>
+		<if>
+			<isset property="hbu" />
+			<then>
+				<property name="born-repo-properties.lib.url" value="${lu}" />
+			</then>
+			<else>
+				<propertyprompt propertyName="born-repo-properties.lib.url"
+					promptText="Enter your lib repos url" />
+			</else>
+		</if>
+		
+		<if>
+			<equals arg1="${born-repo-properties.lib.type}" arg2="git" />
+			<then>
+				<property name="born-repo-properties.lib.tag" value="master" />
+			</then>
+			<elseif>
+				<equals arg1="${born-repo-properties.lib.type}" arg2="svn" />
+				<then>
+					<property name="born-repo-properties.lib.tag" value="trunk" />
+				</then>
+			</elseif>
+			<else>
+				<fail>Unknown repos type (${born-repo-properties.lib.type})</fail>
+			</else>
+		</if>
+	
+		<echo>
+	High build repos type: ${born-repo-properties.high-build.type}
+	High build repos url: ${born-repo-properties.high-build.url}
+	
+	Lib repos type: ${born-repo-properties.lib.type}
+	Lib repos tag (auto): ${born-repo-properties.lib.tag}
+	Lib repos url: ${born-repo-properties.lib.url}
+		</echo>
+		
+		<propertyprompt propertyName="born-repo-properties.isCorrect"
+			promptText="Repos settings is correct? (yes or no)" defaultValue="yes" />
+		<if>
+			<isfalse value="${born-repo-properties.isCorrect}" />
+			<then>
+				<fail message="Please, start again." />
+			</then>
+		</if>
+		
+		<property name="born-repo-project-repos-init.lib.dst" value="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-repo-properties.lib.tag}" />
+	</target>
+	
+	<target name="born-repo-high-build-generate">		
+		<copy file="${project.basedir}/templates/born-repo/build/properties/parts/kin.xml"
+			tofile="${born-properties.paths.root}/build/properties/parts/${born-properties.project_name}.xml"
+			overwrite="true">
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+		</copy>
+	</target>
+	
+	<target name="born-repo-high-build-repos-init">
+		<if>
+			<equals arg1="${born-repo-properties.high-build.type}" arg2="git" />
+			<then>
+				<exec command="git init ${born-properties.paths.root}/build" 
+					dir="${born-properties.paths.root}/build"
+					passthru="true" checkreturn="true"
+				/>
+				<exec command="git remote add origin ${born-repo-properties.high-build.url}" 
+					dir="${born-properties.paths.root}/build"
+					passthru="true" checkreturn="true" level="info"
+				/>
+			</then>
+			<elseif>
+				<equals arg1="${born-repo-properties.high-build.type}" arg2="svn" />
+				<then>
+					<exec command="svn checkout ${born-repo-properties.high-build.url} ${born-properties.paths.root}/build" 
+						passthru="true" checkreturn="true" level="info" />
+				</then>
+			</elseif>
+			<elseif>
+				<equals arg1="${born-repo-properties.high-build.type}" arg2="svn" />
+				<then>
+					<!-- TODO: realize hg init -->
+				</then>
+			</elseif>
+		</if>
+		
+		<move file="${born-properties.paths.root}/build/.gitignore.tpl" 
+					tofile="${born-properties.paths.root}/build/.gitignore" 
+					overwrite="true"/>
+		<move file="${born-properties.paths.root}/build/.hgignore.tpl" 
+					tofile="${born-properties.paths.root}/build/.hgignore" 
+					overwrite="true"/>
+	</target>
+	
+	<target name="born-repo-project-repos-init">
+		<if>
+			<equals arg1="${born-repo-properties.high-build.type}" arg2="git" />
+			<then>
+				<exec command="git init ${born-repo-project-repos-init.lib.dst}" 
+					dir="${born-repo-project-repos-init.lib.dst}"
+					passthru="true" checkreturn="true" level="info"
+				/>	
+				<exec command="git remote add origin ${born-repo-properties.lib.url}" 
+					dir="${born-repo-project-repos-init.lib.dst}"
+					passthru="true" checkreturn="true" level="info" 
+				/> 
+			</then>
+			<elseif>
+				<equals arg1="${born-repo-properties.high-build.type}" arg2="svn" />
+				<then>
+					<exec command="svn checkout ${born-repo-properties.lib.url} ${born-repo-project-repos-init.lib.dst}" 
+						passthru="true" checkreturn="true" level="info" />
+				</then>
+			</elseif>
+		</if>
+	</target>
+	
+	<target name="born-repo-project-setup">
+		<copy
+			todir="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}">
+			<fileset dir="${build.tmpldir.root}/libs/kin" />
+			<filterchain>
+				<expandproperties />
+			</filterchain>
+		</copy>
+
+		<chmod file="${born-properties.paths.root}/build/bin/phing" mode="0555" />
+		<property name="born-project.setup.command"
+			value="${born-properties.paths.root}/build/bin/phing install configure link -Dbt=D -Dbu=${build.username}" />
+		<exec command="${born-project.setup.command}"
+					passthru="true" checkreturn="true" level="info"  />
+	</target>
+</project>

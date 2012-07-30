@@ -15,24 +15,24 @@
                 <if>
                     <equals arg1="${get-build.deploy.vcs.type}" arg2="svn" />
                     <then>
-                        <verboseexec
+                        <exec
                             command="svn checkout ${get-build.deploy.vcs.src} ${get-build.deploy.dst}"
-                            checkreturn="true" />
+                            passthru="true" checkreturn="true" level="info" />
                     </then>
                     <elseif>
                         <equals arg1="${get-build.deploy.vcs.type}" arg2="git" />
                         <then>
-                            <verboseexec
+                            <exec
                                 command="git clone ${get-build.deploy.vcs.src} ${get-build.deploy.dst}"
-                                checkreturn="true" />
+                                passthru="true" checkreturn="true" level="info" />
                         </then>
                     </elseif>
                     <elseif>
                         <equals arg1="${get-build.deploy.vcs.type}" arg2="hg" />
                         <then>
-                            <verboseexec
+                            <exec
                                 command="hg clone ${get-build.deploy.vcs.src} ${get-build.deploy.dst}"
-                                checkreturn="true" />
+                                passthru="true" checkreturn="true" level="info" />
                         </then>
                     </elseif>
                     <else>
@@ -181,13 +181,13 @@
         
         <copy file="${build.tmpldir.build}/bin/prop" tofile="${get-build.deploy.dst}/bin/prop" />
         <propertyprompt propertyName="get-build.deploy.setup"
-            promptText="Setup project? (yes or no)" defaultValue="no" />
+            promptText="Setup project? (yes or no)" defaultValue="1" />
         <property name="get-build.deploy.setup.command" value="${get-build.deploy.dst}/bin/phing install configure link" />
         <if>
             <istrue value="${get-build.deploy.setup}" />
             <then>
                 <echo>Setup cmd: ${get-build.deploy.setup.command}</echo>
-                <verboseexec command="${get-build.deploy.setup.command}" checkreturn="true" />
+                <exec command="${get-build.deploy.setup.command}" passthru="true" checkreturn="true" level="info" />
 			</then>
 		</if>
 	</target>
