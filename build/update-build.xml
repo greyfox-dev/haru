@@ -28,7 +28,8 @@
 			<isset property="update-build.command"></isset>
 			<then>
 				<echo>${update-build.command}</echo>
-				<exec command="${update-build.command}" logoutput="true"></exec>
+				<exec command="${update-build.command}" 
+					passthru="true" checkreturn="true" level="info" />
 			</then>
 		</if>
 	</target>

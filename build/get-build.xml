@@ -181,7 +181,9 @@
         
         <copy file="${build.tmpldir.build}/bin/prop" tofile="${get-build.deploy.dst}/bin/prop" />
         <propertyprompt propertyName="get-build.deploy.setup"
-            promptText="Setup project? (yes or no)" defaultValue="1" />
+            promptText="Setup project? (yes or no)"
+            useExistingValue="1" 
+            defaultValue="1" />
         <property name="get-build.deploy.setup.command" value="${get-build.deploy.dst}/bin/phing install configure link" />
         <if>
             <istrue value="${get-build.deploy.setup}" />
