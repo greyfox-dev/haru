@@ -5,7 +5,7 @@
 			<plugin>PHPUnit</plugin>
 			<deploy>
 				<type><![CDATA[git]]></type>
-				<tag><![CDATA[branches/3.6]]></tag>
+				<tag><![CDATA[3.6]]></tag>
 				<src>http://github.com/TheRatG/phpunit.git</src>				
 				<dst>${config.paths.libs}/phpunit/${config.libs.PHPUnit.deploy.tag}</dst>								
 			</deploy>

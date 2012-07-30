@@ -199,7 +199,7 @@ class LibDeployTask extends Task
 			$command = '';
 			if ( !empty( $branch ) )
 			{
-				$command .= sprintf( '%s ckeckout "%s"', $bin, $branch );
+				$command .= sprintf( 'cd %s; %s checkout "%s";',$toDir , $bin, $branch );
 			}
 			$command .= sprintf( '%s pull %s', $bin, $toDir );
 		}

@@ -1,1 +1,9 @@
+<<<<<<< HEAD
 tmp/*
+=======
+data/config_map.php
+data/config.php
+data/config.xml
+scripts/miao.php
+modules/Env/data/*
+>>>>>>> 6122e40a103805d585a829225961b5cd5a67f859
