@@ -102,52 +102,68 @@ In Project Build
 ## Свойства проекта
 Свойства проекта хранятся в директории `build/properties` и имеют иерархическую структуру.
 
-Первая ступень общие свойства `build/properties/config.xml`. Содержит системные настройки, 
+### Иерархия
+
+#### Первая ступень 
+Общие свойства `build/properties/config.xml`. Содержит системные настройки, 
 например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
+И файлы находящиеся в директории `build/properties/parts/*.xml`, сделаны для разделения файла `config.xml` на части 
+для удобного редактирования.
 
 ```xml
+<!-- пример build/properties/config.xml -->
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-    <project_name>kin</project_name>
-	<build_type></build_type>
-	<timestamp>${config.phing.env.REQUEST_TIME}</timestamp>
-	<use_glue>1</use_glue>
+	<project_name>kin</project_name>
+	...	
 	<paths>
 		<root></root>
 
 		<public>${config.paths.root}/public</public>
 		<protected>${config.paths.root}/protected</protected>
-
-		<build>${config.phing.build.dir.root}</build>
-		<haru>${config.phing.build.haru.dir}</haru>
-		<etc>${config.paths.root}/etc</etc>
-		<data>${config.paths.root}/data</data>
-		<libs>${config.paths.root}/libs</libs>
-		<scripts>${config.paths.root}/scripts</scripts>
-		<shared>${config.paths.root}/shared</shared>
-		<tmp>${config.paths.root}/tmp</tmp>
-		<logs>${config.paths.tmp}/logs</logs>
+		...
 	</paths>
 	<hosts>
 		<root></root>
 		<public>${config.hosts.root}</public>
-		<protected>adm.${config.hosts.root}</protected>
+		...
 	</hosts>
 	<system>
 		<username></username>
 		<bin>
-			<python>python</python>
 			<php>php</php>
-            <svn>svn</svn>
-            <git>git</git>
-            <hg>hg</hg>
+			...
 		</bin>
 	</system>
 	<libs></libs>
 </config>
 ```
 
+```xml
+<!-- пример build/properties/parts/miao.xml -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<Miao>
+			<plugin>Standart</plugin>
+			<deploy>
+			...
+</config>
+```
+#### Вторая ступень
+Расширение настроек в зависимости от платформы.  
+Файл выбирается на основании параметра bt (build type) при запуске
+установки проекта. Может быть трех типов develop (D), test (T), production (P).
+Пример запуска команды `./build/bin/phing install -Dbt=T`
 
+Данные настройки имеет приоритет выше чем у свойств первой ступени, соответственно параметры перекрываются второй ступенью.
+Сюда складываются свойства типа: подлючения к БД, пользователь репозитория на test, production платформы и т. п.
+
+#### Третья ступень
+Пользовательские настройки. Данный файл, например `build/properties/extends/users/vpak.xml`, содержит личные настройки
+и не сохраняется в репозитории.
+
+Имеет высший приоритет перед остальными ступенями.
 
 ## In Haru
 
