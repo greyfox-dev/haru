@@ -101,7 +101,53 @@ In Project Build
 
 ## Свойства проекта
 Свойства проекта хранятся в директории `build/properties` и имеют иерархическую структуру.
-Первая ступень общие свойства `build/properties/config.xml`. Содержит системные настройки.
+
+Первая ступень общие свойства `build/properties/config.xml`. Содержит системные настройки, 
+например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <project_name>kin</project_name>
+	<build_type></build_type>
+	<timestamp>${config.phing.env.REQUEST_TIME}</timestamp>
+	<use_glue>1</use_glue>
+	<paths>
+		<root></root>
+
+		<public>${config.paths.root}/public</public>
+		<protected>${config.paths.root}/protected</protected>
+
+		<build>${config.phing.build.dir.root}</build>
+		<haru>${config.phing.build.haru.dir}</haru>
+		<etc>${config.paths.root}/etc</etc>
+		<data>${config.paths.root}/data</data>
+		<libs>${config.paths.root}/libs</libs>
+		<scripts>${config.paths.root}/scripts</scripts>
+		<shared>${config.paths.root}/shared</shared>
+		<tmp>${config.paths.root}/tmp</tmp>
+		<logs>${config.paths.tmp}/logs</logs>
+	</paths>
+	<hosts>
+		<root></root>
+		<public>${config.hosts.root}</public>
+		<protected>adm.${config.hosts.root}</protected>
+	</hosts>
+	<system>
+		<username></username>
+		<bin>
+			<python>python</python>
+			<php>php</php>
+            <svn>svn</svn>
+            <git>git</git>
+            <hg>hg</hg>
+		</bin>
+	</system>
+	<libs></libs>
+</config>
+```
+
+
 
 ## In Haru
 
