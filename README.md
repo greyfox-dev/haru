@@ -1,8 +1,11 @@
 Haru
 ====
 
-Рожденный весной. Универсальный автосборщик.  
-Набор инструкций для [Phing](http://www.phing.info), предназначенный
+Born in the spring
+
+![Cat's return](https://github.com/TheRatG/haru/raw/0.3/docs/images/cats_return_cr.jpg)
+
+Универсальный автосборщик. Набор инструкций для [Phing](http://www.phing.info), предназначенный
 для автоматизации сборки и установки проектов.
 
 ## Требования к ПО
