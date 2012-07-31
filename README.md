@@ -87,6 +87,9 @@ In Project Build
 
 ![Haru change version](https://github.com/TheRatG/haru/raw/0.3/docs/images/haru_change_ver.jpg)
 
+**Вопрос:** Почему symlink, а не просто обновление репозитория?
+**Ответ:** Так как помимо кода хранящегося в репозитории, в папке библиотеки проекта 
+хранятся сгенеренные файлы из шаблонов.
 
 
 ### Разработка
