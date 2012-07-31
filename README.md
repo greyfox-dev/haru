@@ -17,7 +17,7 @@ PHP >= 5.3
 
 ## Быстрый старт
 
-Выполните следующий команды
+Выполните следующие команды:
 
     git clone git://github.com/TheRatG/haru.git
     cd haru
