@@ -60,7 +60,9 @@ In Project Build
 - **project_lib** - проектная библиотека содержит необходимые директории и код, который хранится в репозитории
 - **project** - "установленный" на платформе программный продукт
               
-![Haru common](docs/images/haru - common.jpg)
+![Haru common](https://github.com/TheRatG/haru/raw/0.3/docs/images/haru%20-%20common.jpg)
+
+### 
 
 ## In Haru
 
