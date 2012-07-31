@@ -108,6 +108,8 @@ In Project Build
 
 > "Низы" меняются следом за "верхами"
 
+![Haru stages](https://github.com/TheRatG/haru/raw/0.3/docs/images/haru_stage.jpg)
+
 #### Первая ступень 
 Общие свойства `build/properties/config.xml`. Содержит системные настройки, 
 например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
