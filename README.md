@@ -106,7 +106,7 @@ In Project Build
 
 ### Иерархия
 
-> "Низы" меняются следом за "верхами"
+*"Низы" меняются следом за "верхами"*
 
 ![Haru stages](https://github.com/TheRatG/haru/raw/0.3/docs/images/haru_stage.jpg)
 
@@ -183,6 +183,44 @@ In Project Build
 файл `build/tmp/configs/config.xml `, который используется в сборке проекта.
 
 ### Синтаксис
+Файлы свойств имеют расширение xml, поэтому необходимо соблюдать правила форматирования xml.
+Помните про спецсимволы, если свойство содержит их, оборачивайте значение в *CDATA*.
+Пример: `... <property><![CDATA[something with & "" ']]></property> ...`.
+
+#### Обратные ссылки
+
+Можно получить значение свойства по указанному пути. Переменная заключается в *${}*, путь разделяется *.*.
+
+Пример.
+```xml
+<!-- Source -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>${config.dir}/${config.file}</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>${config.example.${config.example.prop1}}</prop3>
+	</example>
+</config>
+
+<!-- Result -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>/www/dir/file.xml</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>value2</prop3>
+	</example>
+</config>
+```
+
+#### Атрибуты
 
 ### Секции
 
