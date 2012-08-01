@@ -307,7 +307,6 @@ result:
 </root>
 ```
 
-
 ### Секции
 
 ## In Haru
