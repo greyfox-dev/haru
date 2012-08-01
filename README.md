@@ -171,6 +171,8 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 - bt - build type, тип платформы (D|T|P), develop, test, production. Расширяет свойства соответствующими файлами из директории `properties/extends/`
 - bu - имя пользователя, расширяет свойства соответствующим файлом из директории `properties/extends/users/`
 
+> По умолчанию подставляются опции: -Dbt=D -Dbu=<user>
+
 ### Install
 Создание минимально необходимых директорий и скачивание необходимых библиотек.
 При повторном запуске команды обновляет имеющиеся репозитории, если свойства изменились, докачивает необходимое.  
@@ -203,6 +205,41 @@ result cron.sh:
 Симлинки нужны для настройки виртуального хоста, и крон-скриптов.
 
 > Не злоупотребляйте symliks, по возможности используйте в скриптах абсолютные пути.
+
+### Дополнительные инструкции
+Каждую из команд можно дополнить своими инструкциями phing, которые выполняются до (before) или после (after) запуска команды.
+Для этого необходимо внести изменения в одноименные файлы в директории **<project_root>/build/targets**.  
+Используется для запуска дополнительных операций необходимых для установки проектов.
+
+Пример.
+Необходимо запустить скрипт сжатия js-скриптов, после конфигурирвоания проекта (configure).
+
+Редактируем файл `<project_root>/build/targets/configure.xml`, 
+добавляем в цель (target) configure-after свои инструкции.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="help">
+        <target name="configure-before">
+                <echo>custom project actions _before_ configure</echo>
+        </target>
+        <target name="configure-after">
+                <echo>custom project actions _after_ configure</echo>
+                <!-- run minify -->
+                <exec command="<project_root>/scripts/minify.php" checkreturn="1" />
+        </target>
+</project>
+```
+
+> Данный прием используется для запуска инструкций из директории библиотеки, создавая каскад операций.
+> Пример.
+> ```xml
+> <!-- file: <project_root>/build/targets/configure.xml -->
+> ...
+> 	<target name="configure-after">
+>		<phing phingfile="<project_root>/lib/<project>/<branch>/build/configure.xml" target="main" haltonfailure="true">
+>	</target>
+> ...
+> ```
 
 ## Свойства проекта
 Свойства проекта хранятся в директории `build/properties` и имеют иерархическую структуру.  
