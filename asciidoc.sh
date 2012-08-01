@@ -1,2 +1,2 @@
 #!/bin/bash
-asciidoc -o index.html docs/index.txt
+asciidoc -v -o index.html docs/index.txt

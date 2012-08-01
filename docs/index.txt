@@ -2,7 +2,7 @@ Haru
 ====
 Vladimir Pak <TheRatW@gmail.com>
 
-Born in the spring
+.Born in the spring
 image:docs/images/cats_return_cr.jpg[Cat's return]
 
 == Описание
