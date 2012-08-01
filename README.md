@@ -230,16 +230,18 @@ result cron.sh:
 </project>
 ```
 
-> Данный прием используется для запуска инструкций из директории библиотеки, создавая каскад операций.
-> Пример.
-> ```xml
-> <!-- file: <project_root>/build/targets/configure.xml -->
-> ...
-> 	<target name="configure-after">
->		<phing phingfile="<project_root>/lib/<project>/<branch>/build/configure.xml" target="main" haltonfailure="true">
->	</target>
-> ...
-> ```
+Одним из приемов использования является запуск своих инструкций (build.xml - phing), 
+например хранящиеся в директории библиотеки.
+Пример.
+```xml
+<!-- file: <project_root>/build/targets/configure.xml -->
+...
+	<target name="configure-after">
+		<phing phingfile="<project_root>/lib/<project>/<branch>/build/configure.xml" 
+			target="main" haltonfailure="true">
+	</target>
+...
+```
 
 ## Свойства проекта
 Свойства проекта хранятся в директории `build/properties` и имеют иерархическую структуру.  
