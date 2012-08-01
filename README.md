@@ -503,3 +503,17 @@ result:
 ```
 
 #### Libs
+
+В секции `libs` описаны библиотеки проекта, данные свойства выделяются в отдельные файлы в директории `parts`.
+
+Пример части файла `build/properties/parts/miao.xml`
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<Miao>			
+		...
+		</Miao>
+	</libs>
+</config>
+```
