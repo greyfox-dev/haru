@@ -176,7 +176,7 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 ### Install
 
 ```bash
-<project_root>/build/bin/phing install
+$ <project_root>/build/bin/phing install
 ```
 
 Создание минимально необходимых директорий и скачивание необходимых библиотек.
@@ -186,7 +186,7 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 ### Configure
 
 ```bash
-<project_root>/build/bin/phing configure
+$ <project_root>/build/bin/phing configure
 ```
 Создает дополнительные директории, генерирует файлы из шаблонов, создает конфигурационные файлы для проекта и 
 библиотек (lib).
@@ -211,7 +211,7 @@ result cron.sh:
 ### Link
 
 ```bash
-<project_root>/build/bin/phing link
+$ <project_root>/build/bin/phing link
 ```
 
 Создает symlinks для проекта.  
@@ -465,3 +465,11 @@ result:
 ```
 
 ### Секции
+
+Корневым элементом xml является тег **<config>**.
+- `paths` содержит определения абсолютных путей жизненно важных директорий
+- `libs` содержит свойства библиотек
+- `system` используетя для описания настроек операционной системы
+- `hosts` складываем определение доменных имен
+
+#### Libs
