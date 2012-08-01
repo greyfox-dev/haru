@@ -435,6 +435,7 @@ result:
 ```
 
 Пример слияния веток с одинаковыми именами (`config.xml merge develop.xml`).
+
 file: config.xml
 ```xml
 <?xml version="1.0"?>
