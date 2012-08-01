@@ -187,7 +187,7 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 
 Пример.
 source cron.sh.tpl:
-```bash
+```
 #!/bin/bash
 ${system.bin.php} ${paths.scripts}/cron.php --quiet
 ```
