@@ -221,12 +221,37 @@ In Project Build
 ```
 
 #### Атрибуты
-Атрибуты подтягиваются только если тэг без вложенных тэгов.
+Возможно использования атрибутов. 
+
+> Атрибуты подтягиваются только если тэг без вложенных тэгов.
+
+Пример.  
+
+Запись source:
+```xml
+<config>
+	<item name="1"></item>
+	<item name="2"></item>
+</config>
+```
+
+Будет эквивалентна result:
+```xml
+<?xml version="1.0" encoding="UTF8"?>
+<config>
+	<item>
+		<name>1</name>
+	</item>
+	<item>
+		<name>2</name>
+	</item>
+</config>
+```
 
 #### Перекрытие свойств
-Свойства по одинаковуму xpath перекрываются, в порядке описания.
+Свойства по одинаковуму xpath перекрываются.
 
-Пример: имеется два файла `config.xml` и `develop.xml`, объеденим их.
+Пример: имеется два файла `config.xml` и `develop.xml`, объединим их.
 
 file: config.xml
 ```xml
@@ -251,6 +276,37 @@ result:
 	<a>new</a>
 </root>
 ```
+
+Пример слияния веток с одинаковыми именами (`config.xml merge develop.xml`).
+file: config.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+</root>
+```
+
+file: develop.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+</root>
+```
+
+result:
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+	<item>3</item>
+</root>
+```
+
 
 ### Секции
 
