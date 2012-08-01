@@ -466,10 +466,40 @@ result:
 
 ### Секции
 
-Корневым элементом xml является тег **<config>**.
+Корневым элементом xml является тег `config`.
 - `paths` содержит определения абсолютных путей жизненно важных директорий
 - `libs` содержит свойства библиотек
 - `system` используетя для описания настроек операционной системы
 - `hosts` складываем определение доменных имен
+
+Пример.
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<project_name>kin</project_name>
+	<paths>
+		<root></root>
+
+		<public>${config.paths.root}/public</public>
+		...
+		<tmp>${config.paths.root}/tmp</tmp>
+		<logs>${config.paths.tmp}/logs</logs>
+	</paths>
+	<hosts>
+		<root></root>
+	</hosts>
+	<system>
+		<username></username>
+		<bin>
+			<python>python</python>
+			<php>php</php>
+		        ...
+		</bin>
+	</system>
+	<libs>
+		...
+	</libs>
+</config>
+```
 
 #### Libs
