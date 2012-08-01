@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<config>
-	<item1>1</item1>
-	<item2>some string with &</item2>
-	<item3>3</item3>
-	<item4>4</item4>
-</config>

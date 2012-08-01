@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dir>
-	<tmp>/www/build/r2phing/tmp</tmp>
-	<tmp>
-		<configs>/www/build/r2phing/tmp/configs</configs>
-	</tmp>
-</dir>
