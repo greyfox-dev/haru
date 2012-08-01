@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<test>
+		<item name="1"></item>
+		<item name="2"></item>
+		<item name="3"></item>
+	</test>
+	<test>
+		<item name="1"></item>
+		<item name="2" class="2"></item>
+		<item name="3" option="3"></item>
+	</test>
+</config>

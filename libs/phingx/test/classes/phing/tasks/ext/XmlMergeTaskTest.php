@@ -69,6 +69,9 @@ class XmlMergeTaskTest extends BuildFileTest
 		$data[] = array( 5, 'php', 'BuildException' );
 		$data[] = array( 6, 'xml' );
 		$data[] = array( 7 );
+		$data[] = array( 8 );
+		$data[] = array( 9 );
+		$data[] = array( 10, 'xml' );
 
 		return $data;
 	}

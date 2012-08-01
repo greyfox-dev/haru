@@ -41,4 +41,16 @@
 	<target name="merge7">		
 		<xmlmerge srcFileList="7_common.xml,7_develop.xml" dstFile="7_expected.php" />
 	</target>
+	
+	<target name="merge8">		
+		<xmlmerge srcFileList="8_common.xml,8_develop.xml" dstFile="8_expected.php" />
+	</target>
+	
+	<target name="merge9">		
+		<xmlmerge srcFileList="9_common.xml,9_develop.xml" dstFile="9_expected.php" />
+	</target>
+	
+	<target name="merge10">		
+		<xmlmerge srcFileList="10_common.xml,10_develop.xml" dstFile="10_expected.xml" type="xml" />		
+	</target>
 </project>
