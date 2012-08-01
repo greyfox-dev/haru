@@ -106,7 +106,7 @@ In Project Build
 
 ### Иерархия
 
-> "Низы" меняются следом за "верхами"
+*"Низы" меняются следом за "верхами"*
 
 ![Haru stages](https://github.com/TheRatG/haru/raw/0.3/docs/images/haru_stage.jpg)
 
@@ -115,6 +115,9 @@ In Project Build
 например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
 И файлы находящиеся в директории `build/properties/parts/*.xml`, сделаны для разделения файла `config.xml` на части 
 для удобного редактирования.
+
+> Файлы из директории `parts` используются для физического разделения ветвей xml, в отличии от других ступеней, где
+> свойства заменяются.
 
 ```xml
 <!-- пример build/properties/config.xml -->
@@ -180,6 +183,129 @@ In Project Build
 файл `build/tmp/configs/config.xml `, который используется в сборке проекта.
 
 ### Синтаксис
+Файлы свойств имеют расширение xml, поэтому необходимо соблюдать правила форматирования xml.  
+Помните, если свойство содержит спецсимволы, оборачивайте значение тега в **CDATA**.
+Пример: `... <property><![CDATA[something with & "" ']]></property> ...`.
+
+#### Обратные ссылки
+
+Можно получить значение свойства по указанному пути. Переменная заключается в *${}*, путь разделяется *.*.
+
+Пример.
+```xml
+<!-- Source -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>${config.dir}/${config.file}</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>${config.example.${config.example.prop1}}</prop3>
+	</example>
+</config>
+
+<!-- Result -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>/www/dir/file.xml</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>value2</prop3>
+	</example>
+</config>
+```
+
+#### Атрибуты
+Возможно использования атрибутов. 
+
+> Атрибуты подтягиваются только если тэг без вложенных тэгов.
+
+Пример.  
+
+Запись source:
+```xml
+<config>
+	<item name="1"></item>
+	<item name="2"></item>
+</config>
+```
+
+Будет эквивалентна result:
+```xml
+<?xml version="1.0" encoding="UTF8"?>
+<config>
+	<item>
+		<name>1</name>
+	</item>
+	<item>
+		<name>2</name>
+	</item>
+</config>
+```
+
+#### Перекрытие свойств
+Свойства по одинаковуму xpath перекрываются.
+
+Пример: имеется два файла `config.xml` и `develop.xml`, объединим их.
+
+file: config.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>old</a>
+</root>
+```
+
+file: develop.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+```
+
+result:
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+```
+
+Пример слияния веток с одинаковыми именами (`config.xml merge develop.xml`).
+file: config.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+</root>
+```
+
+file: develop.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+</root>
+```
+
+result:
+```xml
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+	<item>3</item>
+</root>
+```
 
 ### Секции
 
