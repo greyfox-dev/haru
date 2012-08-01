@@ -518,3 +518,53 @@ result:
 	</libs>
 </config>
 ```
+
+Далее будет рассматриваться секции внутри библиотеки.
+
+##### Deploy
+Секция `deploy` описывает настройки необходимые команде **install**.
+- `type` - тип репозитория (none|svn|git|hg)
+- `tag` - названия бранча или тега (только для svn)
+- `src` - ссылка репозитория
+- `dst` - куда будут выгружены файлы из репозитория
+- `current` - имя symlink на текущую версию библиотеки
+- `username` - имя пользователя репозитория
+- `password` - парольк репозитория
+
+##### Configure
+
+- `depends` - содержит описание зависимостей            
+Пример, проект использует библиотеки PHPUnit, Zend.
+
+```xml
+<depends>
+	<item>PHPUnit</item>
+	<item>Zend</item>
+</depends>
+```
+- `dirs` - описание создаваемых директорий, состоит из `item`
+         - `dir` - абсолютный путь папки
+         - `mode` - права доступа
+
+```xml
+<dirs>					
+	<item>
+		<dir>data</dir>
+		<mode>777</mode>
+	</item>
+	...
+</dirs>
+```
+- `files` - генерация файлов из шаблонов, состоит из `item`
+          
+```xml
+...
+<files>
+	<item>
+		<src>${config.paths.build}/templates/scripts/setenv.sh.tpl</src>
+		<dst>${config.paths.scripts}/setenv.sh</dst>
+		<mode>0555</mode>
+	</item>
+	...
+...
+```
