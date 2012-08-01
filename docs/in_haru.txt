@@ -1,0 +1,69 @@
+== In Haru
+Описываемые команды являются командами вне проектов, запускаются в директории haru. 
+Опции указываются с префиксом *-D*, например чтобы передать опцию *path*, необходимо написать *-Dpath=/www*
+
+=== Born
+[source,bash]
+----
+$ ./phing born # - создание учебного проекта
+----
+
+.Опции
+* 'path' - директория где будет располагаться файлы учебного проекта
+* 'lib' - наименование библиотеки проекта
+* 'host' - хост проекта
+
+Пример.
+Создать проект в директории '/www/kin', который будет доступен по адресу 'http://kin.dv'
+
+[source,bash]
+----
+$ cd /www/haru
+$ ./phing born -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin
+$ ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf # пример настройки виртуального хоста apache
+----
+
+[NOTE]
+Если параметры не указаны они будут запрошены из консоли (promt).
+
+=== Born Repo
+Тоже что и *born*, добавляются операции по инициализации репозиториев для *project_build* и вашей библиотеки *libs/<lib_name>/<branch>*.
+Используется в случае, если вы захотите развивать созданный проект дальше :).
+
+Пример.
+[source,bash]
+----
+$ ./phing born-repo -Dhbt=svn -Dhbu=https://github.com/<user>/<project_build>.git \
+	-Dlt=svn -Dlu=https://github.com/<user>/project.git \
+	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<project>
+$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
+	# пример настройки виртуального хоста apache
+----
+
+Далее добавить файлы в репозиторий, сохранить.
+
+=== Get Build
+Устанавливает проект при помощи *project_build*.   
+Создает необходимые директории, cкачивает *project_build* из указанного репозитория, 
+и запускает сборку проекта, после вашего подтверждения.
+
+.Опции
+* vcs - тип репозитория (svn|git|hg) 
+* src - url репозитория
+* path - директория где будет располагаться файлы учебного проекта
+* lib - наименование библиотеки проекта
+* host - хост проекта
+
+Пример.
+
+Установить проект в директории '/www/<project>', который будет доступен по адресу 'http://<project_host>', 
+при помощи проектной сборки, находящейся по адресу 'git://github.com/<user>/<project_build>.git'
+
+[source,bash]
+----
+$ cd /www/haru
+$ ./phing born -Dvcs=git -Dsrc=git://github.com/<user>/<project_build>.git \
+	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<project>
+$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
+	# пример настройки виртуального хоста apache
+----

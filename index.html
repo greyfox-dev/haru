@@ -744,46 +744,877 @@ asciidoc.install();
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph"><p>Born in the spring</p></div>
-<div class="paragraph"><p><span class="image">
-<img src="images/cats_return_cr.jpg" alt="Cat&#8217;s return" />
+<div class="paragraph"><p>Born in the spring
+<span class="image">
+<img src="docs/images/cats_return_cr.jpg" alt="Cat&#8217;s return" />
 </span></p></div>
-<div class="paragraph"><p>## Описание</p></div>
-<div class="paragraph"><p>Универсальный автосборщик. Набор инструкций для [Phing](<a href="http://www.phing.info">http://www.phing.info</a>), предназначенный
+</div>
+</div>
+<div class="sect1">
+<h2 id="_описание">Описание</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Универсальный автосборщик. Набор инструкций для <a href="http://www.phing.info">Phing</a>, предназначенный
 для автоматизации сборки и установки проектов.</p></div>
-<div class="paragraph"><p>## Требования к ПО
-PHP &gt;= 5.3</p></div>
-<div class="paragraph"><p>## Установка
-Скачайте и распакуйте архив необходимой версии программы [Haru](<a href="https://github.com/TheRatG/haru">https://github.com/TheRatG/haru</a>)
-Или
-Скопируйте репозиторий</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><tt>git clone git://github.com/TheRatG/haru.git</tt></pre>
-</div></div>
-<div class="paragraph"><p>## Быстрый старт</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_требования_к_по">Требования к ПО</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>PHP &gt;= 5.3</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_установка">Установка</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Скачайте и распакуйте архив необходимой версии программы <a href="https://github.com/TheRatG/haru">Haru</a></p></div>
+<div class="paragraph"><p>Или</p></div>
+<div class="paragraph"><p>Скопируйте репозиторий</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>git clone git<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com/TheRatG/haru<span style="color: #990000">.</span>git</tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_быстрый_старт">Быстрый старт</h2>
+<div class="sectionbody">
 <div class="paragraph"><p>Выполните следующие команды:</p></div>
 <div class="listingblock">
-<div class="content">
-<pre><tt>    git clone git://github.com/TheRatG/haru.git
-    cd haru
-    ./phing born -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin -Dget-build.deploy.setup=1</tt></pre>
-</div></div>
-<div class="paragraph"><p><strong>Учебный проект готов</strong>
-Для запуска сайта настройте виртуальный хост:</p></div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>git clone git<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com/TheRatG/haru<span style="color: #990000">.</span>git
+cd haru
+<span style="color: #990000">.</span>/phing born -Dpath<span style="color: #990000">=</span>/www/kin -Dhost<span style="color: #990000">=</span>kin<span style="color: #990000">.</span>dv -Dlib<span style="color: #990000">=</span>kin -Dget-build<span style="color: #990000">.</span>deploy<span style="color: #990000">.</span><span style="color: #009900">setup</span><span style="color: #990000">=</span><span style="color: #993399">1</span></tt></pre></div></div>
+<div class="paragraph"><p><strong>Учебный проект готов</strong></p></div>
+<div class="paragraph"><p>Для запуска сайта настройте виртуальный хост:</p></div>
 <div class="listingblock">
-<div class="content">
-<pre><tt>    ## создайте ссылку на кофигурационный файл для apache
-    ## например
-    sudo ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf</tt></pre>
-</div></div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">## создайте ссылку на кофигурационный файл для apache</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">## например</span></span>
+sudo ln -s /www/kin/etc/kin<span style="color: #990000">.</span>conf /usr/local/apache<span style="color: #993399">2</span>/conf<span style="color: #990000">.</span>d/kin<span style="color: #990000">.</span>conf</tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_функциональные_возможности">Функциональные возможности</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Выделяются две группы функций: операции (targets), выполняемые непосредственно в папке haru (in haru), и
+операции, выполняемые в папке build проекта (in project build).
+Так как проект использует Phing, то соответственно Haru наследует все возможности родителя.</p></div>
+<div class="ulist"><div class="title">In Haru</div><ul>
+<li>
+<p>
+создание учебного проекта, основанного на miao
+</p>
+</li>
+<li>
+<p>
+создание учебного проекта с инициализацией репозиториев
+</p>
+</li>
+<li>
+<p>
+установка проекта, при помощи project build
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">In Project Build</div><ul>
+<li>
+<p>
+установка проекта
+</p>
+</li>
+<li>
+<p>
+конфигуририрование проекта
+</p>
+</li>
+<li>
+<p>
+управление симлинками
+== Основные понятия и жизненный цикл проекта
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Под проектом (<strong>project</strong>) понимается совокупность проектных библиотек (<strong>libs</strong>),
+хранящиеся в репозитории и проектной сборки (<strong>project_build</strong>).</p></div>
+<div class="paragraph"><p>При установке проекта (<strong>setup</strong>) при помощи <strong>Haru</strong> (команда get-build) создается директория, в которую складывается
+проектная сборка (<strong>project_build</strong>), и при помощи настроек этой сборки устанавливаются необходимые библиотеки,
+конфигурируется проект.</p></div>
+<div class="ulist"><div class="title">Итого</div><ul>
+<li>
+<p>
+<strong>Haru</strong> - главные инструкции по установке проекта
+</p>
+</li>
+<li>
+<p>
+<strong>projeсt_build</strong> - свойства проекта и дополнительные инструкции phing
+</p>
+</li>
+<li>
+<p>
+<strong>project_lib</strong> - проектная библиотека содержит необходимые директории и код, который хранится в репозитории
+</p>
+</li>
+<li>
+<p>
+<strong>project</strong> - "установленный" на платформе программный продукт
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><span class="image">
+<img src="docs/images/haru_common.jpg" alt="Haru common" />
+</span></p></div>
+<div class="sect2">
+<h3 id="_циклы">Циклы</h3>
+<div class="sect3">
+<h4 id="_создание_проекта">Создание проекта</h4>
+<div class="paragraph"><p>Создаем проект и сохраняем его в репозиторий для совместной разработки, возможно нам понадобится отменить правку.
+Каждый разработчик работает со своей копией проекта, либо один и тот же человек за разными компьютерами.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_установка_выкат_deploy_проекта">Установка/выкат (deploy) проекта</h4>
+<div class="paragraph"><p>При установке проекта мы указываем каталог хранения, помимо этого нам обычно необходимо изменить множество параметров
+проекта (конфигурационные данные). Например: путь до исполняемого файла php, параметры соединения к БД, опции php.ini,
+имя тега/бранча lib.</p></div>
+<div class="paragraph"><p>Эти параметры зависят от типа платформы (на test одни параметры подлючения, на develop другие).
+Помимо свойств зависящих от платформы имеется возможность расширить свойства пользовательским файлом.
+В частности, это очень полезно для develop платформы, когда над одним проектом работают несколько разработчиков.</p></div>
+<div class="paragraph"><p>Установка новой версии продукта происходит так:
+- загружаются новые версии библиотек (lib) в отдельную директорию
+- генерируются файлы из шаблонов
+- переключаются symlink
+- в случае, если нужно отменить выкат новой версии, переключаем symlink</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="docs/images/haru_change_ver.jpg" alt="Haru change version" />
+</span></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content"><strong>Вопрос:</strong> Почему symlink, а не просто обновление репозитория?
+<strong>Ответ:</strong> Так как помимо кода хранящегося в репозитории в папке библиотеки проекта
+хранятся файлы сгенеренные из шаблонов. Также обновление может занимать длительное время,
+переключение symlink работает быстрее.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_разработка">Разработка</h4>
+<div class="paragraph"><p>Разработчик имеет свою копию проекта. Настройки (конфигурационные данные) собственной копии расширяются
+в пользовательском файле <em>build/properties/extends/users/&lt;username&gt;.xml</em>, которые не сохраняются в репозиторий,
+так как содержит некоторые конфиденциальные данные.</p></div>
+<div class="paragraph"><p>Для разработки обычно создают отдельную ветку проекта (branch). После создания ветки, необходимо внести изменения
+в пользовательский файл настроек и переустановить проект.
+== In Haru
+Описываемые команды являются командами вне проектов, запускаются в директории haru.
+Опции указываются с префиксом <strong>-D</strong>, например чтобы передать опцию <strong>path</strong>, необходимо написать <strong>-Dpath=/www</strong></p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_born">Born</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">.</span>/phing born <span style="font-style: italic"><span style="color: #9A1900"># - создание учебного проекта</span></span></tt></pre></div></div>
+<div class="ulist"><div class="title">Опции</div><ul>
+<li>
+<p>
+<em>path</em> - директория где будет располагаться файлы учебного проекта
+</p>
+</li>
+<li>
+<p>
+<em>lib</em> - наименование библиотеки проекта
+</p>
+</li>
+<li>
+<p>
+<em>host</em> - хост проекта
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Пример.
+Создать проект в директории <em>/www/kin</em>, который будет доступен по адресу <em>http://kin.dv</em></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ cd /www/haru
+$ <span style="color: #990000">.</span>/phing born -Dpath<span style="color: #990000">=</span>/www/kin -Dhost<span style="color: #990000">=</span>kin<span style="color: #990000">.</span>dv -Dlib<span style="color: #990000">=</span>kin
+$ ln -s /www/kin/etc/kin<span style="color: #990000">.</span>conf /usr/local/apache<span style="color: #993399">2</span>/conf<span style="color: #990000">.</span>d/kin<span style="color: #990000">.</span>conf <span style="font-style: italic"><span style="color: #9A1900"># пример настройки виртуального хоста apache</span></span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Если параметры не указаны они будут запрошены из консоли (promt).</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_born_repo">Born Repo</h3>
+<div class="paragraph"><p>Тоже что и <strong>born</strong>, добавляются операции по инициализации репозиториев для <strong>project_build</strong> и вашей библиотеки <strong>libs/&lt;lib_name&gt;/&lt;branch&gt;</strong>.
+Используется в случае, если вы захотите развивать созданный проект дальше :).</p></div>
+<div class="paragraph"><p>Пример.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">.</span>/phing born-repo -Dhbt<span style="color: #990000">=</span>svn -Dhbu<span style="color: #990000">=</span>https<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com<span style="color: #990000">/&lt;</span>user<span style="color: #990000">&gt;/&lt;</span>project_build<span style="color: #990000">&gt;.</span>git <span style="color: #990000">\</span>
+        -Dlt<span style="color: #990000">=</span>svn -Dlu<span style="color: #990000">=</span>https<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com<span style="color: #990000">/&lt;</span>user<span style="color: #990000">&gt;</span>/project<span style="color: #990000">.</span>git <span style="color: #990000">\</span>
+        -Dpath<span style="color: #990000">=</span>/www<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;</span> -Dhost<span style="color: #990000">=&lt;</span>project_host<span style="color: #990000">&gt;</span> -Dlib<span style="color: #990000">=&lt;</span>project<span style="color: #990000">&gt;</span>
+$ ln -s /www/kin/etc<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf /usr/local/apache<span style="color: #993399">2</span>/conf<span style="color: #990000">.</span>d<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf <span style="color: #990000">\</span>
+        <span style="font-style: italic"><span style="color: #9A1900"># пример настройки виртуального хоста apache</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Далее добавить файлы в репозиторий, сохранить.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_get_build">Get Build</h3>
+<div class="paragraph"><p>Устанавливает проект при помощи <strong>project_build</strong>.
+Создает необходимые директории, cкачивает <strong>project_build</strong> из указанного репозитория,
+и запускает сборку проекта, после вашего подтверждения.</p></div>
+<div class="ulist"><div class="title">Опции</div><ul>
+<li>
+<p>
+vcs - тип репозитория (svn|git|hg)
+</p>
+</li>
+<li>
+<p>
+src - url репозитория
+</p>
+</li>
+<li>
+<p>
+path - директория где будет располагаться файлы учебного проекта
+</p>
+</li>
+<li>
+<p>
+lib - наименование библиотеки проекта
+</p>
+</li>
+<li>
+<p>
+host - хост проекта
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Пример.</p></div>
+<div class="paragraph"><p>Установить проект в директории <em>/www/&lt;project&gt;</em>, который будет доступен по адресу <em>http://&lt;project_host&gt;</em>,
+при помощи проектной сборки, находящейся по адресу <em>git://github.com/&lt;user&gt;/&lt;project_build&gt;.git</em></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ cd /www/haru
+$ <span style="color: #990000">.</span>/phing born -Dvcs<span style="color: #990000">=</span>git -Dsrc<span style="color: #990000">=</span>git<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com<span style="color: #990000">/&lt;</span>user<span style="color: #990000">&gt;/&lt;</span>project_build<span style="color: #990000">&gt;.</span>git <span style="color: #990000">\</span>
+        -Dpath<span style="color: #990000">=</span>/www<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;</span> -Dhost<span style="color: #990000">=&lt;</span>project_host<span style="color: #990000">&gt;</span> -Dlib<span style="color: #990000">=&lt;</span>project<span style="color: #990000">&gt;</span>
+$ ln -s /www/kin/etc<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf /usr/local/apache<span style="color: #993399">2</span>/conf<span style="color: #990000">.</span>d<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf <span style="color: #990000">\</span>
+        <span style="font-style: italic"><span style="color: #9A1900"># пример настройки виртуального хоста apache</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_in_project_build">In Project Build</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Команды отвечающие за установку проекта. Инструкциями для команд являются свойства проекта.</p></div>
+<div class="ulist"><div class="title">Опции</div><ul>
+<li>
+<p>
+bt - build type, тип платформы (D|T|P), develop, test, production. Расширяет свойства соответствующими файлами из директории <em>properties/extends/</em>
+</p>
+</li>
+<li>
+<p>
+bu - имя пользователя, расширяет свойства соответствующим файлом из директории <em>properties/extends/users/</em>
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">По умолчанию подставляются опции: -Dbt=D -Dbu=&lt;user&gt;</td>
+</tr></table>
+</div>
+<div class="sect2">
+<h3 id="_install">Install</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">&lt;</span>project_root<span style="color: #990000">&gt;</span>/build/bin/phing install</tt></pre></div></div>
+<div class="paragraph"><p>Создание минимально необходимых директорий и скачивание необходимых библиотек.
+При повторном запуске команды обновляет имеющиеся репозитории, если свойства изменились, докачивает необходимое.
+Поддерживает выгрузку из репозиториев SVN, Git, Mercurial.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_configure">Configure</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">&lt;</span>project_root<span style="color: #990000">&gt;</span>/build/bin/phing configure</tt></pre></div></div>
+<div class="paragraph"><p>Создает дополнительные директории, генерирует файлы из шаблонов, создает конфигурационные файлы для проекта и
+библиотек (lib).</p></div>
+<div class="paragraph"><p>Параметры генерация файлов из шаблонов описываются в специальной секции библиотеки.
+Сгенеренные файлы: различные скрипты запуска консольных приложений,
+конфигурационные файлы настройки виртуального хоста, конфиг sphinx и многое другое. В шаблонах файлах используются
+обратные ссылки из свойств проекта.</p></div>
+<div class="paragraph"><div class="title">Пример</div><p>source cron.sh.tpl:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">#!/bin/bash</span></span>
+<span style="color: #009900">${system.bin.php}</span> <span style="color: #009900">${paths.scripts}</span>/cron<span style="color: #990000">.</span>php --quiet</tt></pre></div></div>
+<div class="paragraph"><p>result cron.sh:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">#!/bin/bash</span></span>
+/usr/local/bin/php /www/myproject/scripts/cron<span style="color: #990000">.</span>php --quiet</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_link">Link</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">&lt;</span>project_root<span style="color: #990000">&gt;</span>/build/bin/phing link</tt></pre></div></div>
+<div class="paragraph"><p>Создает symlinks для проекта.
+При помощи symliks переключаемся между версиями проекта.
+Симлинки нужны для настройки виртуального хоста, и крон-скриптов.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">Не злоупотребляйте symliks, по возможности используйте в скриптах абсолютные пути.</td>
+</tr></table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_дополнительные_инструкции">Дополнительные инструкции</h3>
+<div class="paragraph"><p>Каждую из команд можно дополнить своими инструкциями phing, которые выполняются до (before) или после (after) запуска команды.
+Для этого необходимо внести изменения в одноименные файлы в директории <strong>&lt;project_root&gt;/build/targets</strong>.
+Используется для запуска дополнительных операций необходимых для установки проектов.</p></div>
+<div class="paragraph"><div class="title">Пример</div><p>Необходимо запустить скрипт сжатия js-скриптов, после конфигурирвоания проекта (configure).</p></div>
+<div class="paragraph"><p>Редактируем файл <em>&lt;project_root&gt;/build/targets/configure.xml</em>,
+добавляем в цель (target) configure-after свои инструкции.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF-8"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;project</span></span> <span style="color: #009900">default</span><span style="color: #990000">=</span><span style="color: #FF0000">"help"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;target</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"configure-before"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;echo&gt;</span></span>custom project actions _before_ configure<span style="font-weight: bold"><span style="color: #0000FF">&lt;/echo&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/target&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;target</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"configure-after"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;echo&gt;</span></span>custom project actions _after_ configure<span style="font-weight: bold"><span style="color: #0000FF">&lt;/echo&gt;</span></span>
+                <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- run minify --&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;exec</span></span> <span style="color: #009900">command</span><span style="color: #990000">=</span><span style="color: #FF0000">"&lt;project_root&gt;/scripts/minify.php"</span> <span style="color: #009900">checkreturn</span><span style="color: #990000">=</span><span style="color: #FF0000">"1"</span> <span style="font-weight: bold"><span style="color: #0000FF">/&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/target&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/project&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Одним из приемов использования является запуск своих инструкций (build.xml - phing),
+например хранящиеся в директории библиотеки.</p></div>
+<div class="listingblock">
+<div class="title">Пример</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">&lt;!-- file: &lt;project_root&gt;/build/targets/configure.xml --&gt;</span></span>
+...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;target</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"configure-after"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;phing</span></span> <span style="color: #009900">phingfile</span><span style="color: #990000">=</span><span style="color: #FF0000">"&lt;project_root&gt;/lib/&lt;project&gt;/&lt;branch&gt;/build/configure.xml"</span>
+                        <span style="color: #009900">target</span><span style="color: #990000">=</span><span style="color: #FF0000">"main"</span> <span style="color: #009900">haltonfailure</span><span style="color: #990000">=</span><span style="color: #FF0000">"true"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/target&gt;</span></span>
+...</tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_свойства_проекта">Свойства проекта</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Свойства проекта хранятся в директории <em>build/properties</em> и имеют иерархическую структуру.
+Является мета-языком для phing, обрабатываются специальными тасками.</p></div>
+<div class="sect2">
+<h3 id="_иерархия">Иерархия</h3>
+<div class="paragraph"><p><strong>"Низы" меняются следом за "верхами"</strong></p></div>
+<div class="paragraph"><p><span class="image">
+<img src="docs/images/haru_stage.jpg" alt="Haru stages" />
+</span></p></div>
+<div class="sect3">
+<h4 id="_первая_ступень">Первая ступень</h4>
+<div class="paragraph"><p>Общие свойства <em>build/properties/config.xml</em>. Содержит системные настройки,
+например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
+И файлы находящиеся в директории <em>build/properties/parts/*.xml</em>, сделаны для разделения файла <em>config.xml</em> на части
+для удобного редактирования.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">Файлы из директории <em>parts</em> используются для физического разделения ветвей xml,
+в отличии от других ступеней, где свойства заменяются.</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">&lt;!-- пример build/properties/config.xml --&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF-8"</span> <span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;project_name&gt;</span></span>kin<span style="font-weight: bold"><span style="color: #0000FF">&lt;/project_name&gt;</span></span>
+        ...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;paths&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;&lt;/root&gt;</span></span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;public&gt;</span></span>${config.paths.root}/public<span style="font-weight: bold"><span style="color: #0000FF">&lt;/public&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;protected&gt;</span></span>${config.paths.root}/protected<span style="font-weight: bold"><span style="color: #0000FF">&lt;/protected&gt;</span></span>
+                ...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/paths&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;hosts&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;&lt;/root&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;public&gt;</span></span>${config.hosts.root}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/public&gt;</span></span>
+                ...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/hosts&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;system&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;username&gt;&lt;/username&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;bin&gt;</span></span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">&lt;php&gt;</span></span>php<span style="font-weight: bold"><span style="color: #0000FF">&lt;/php&gt;</span></span>
+                        ...
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;/bin&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/system&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;libs&gt;&lt;/libs&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">&lt;!-- пример build/properties/parts/miao.xml --&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF-8"</span> <span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;libs&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;Miao&gt;</span></span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">&lt;plugin&gt;</span></span>Standart<span style="font-weight: bold"><span style="color: #0000FF">&lt;/plugin&gt;</span></span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">&lt;deploy&gt;</span></span>
+                        ...
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_вторая_ступень">Вторая ступень</h4>
+<div class="paragraph"><p>Расширение настроек в зависимости от платформы.
+Файл выбирается на основании параметра bt (build type) при запуске
+установки проекта. Может быть трех типов develop (D), test (T), production (P).
+Пример запуска команды <em>./build/bin/phing install -Dbt=T</em></p></div>
+<div class="paragraph"><p>Данные настройки имеет приоритет выше, чем у свойств первой ступени, соответственно параметры перекрываются второй ступенью.
+Сюда складываются свойства типа: подлючения к БД, пользователь репозитория на test, production платформы.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_третья_ступень">Третья ступень</h4>
+<div class="paragraph"><p>Пользовательские настройки. Данный файл, например <em>build/properties/extends/users/vpak.xml</em>, содержит личные настройки
+и не сохраняется в репозитории.</p></div>
+<div class="paragraph"><p>Имеет высший приоритет перед остальными ступенями.</p></div>
+</div>
+<div class="sect3">
+<h4 id="_для_чего_нужна_иерархия">Для чего нужна иерархия?</h4>
+<div class="paragraph"><p>Перекрытие свойств - удобный трюк для хранения параметров проекта. Он позволяет сократить количество параметров в файлах
+расширениях. Ступенчатость (разделение по директориям <em>extends</em>, <em>parts</em>) упорядочивает структуру файлов. Данный прием
+используется в Zend_Config и Ant.</p></div>
+<div class="paragraph"><p>В конце концов при установке проекта файлы расширений собираются в один большой конфигурационный
+файл 'build/tmp/configs/config.xml ', который используется в сборке проекта.</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_синтаксис">Синтаксис</h3>
+<div class="paragraph"><p>Файлы свойств имеют расширение xml, поэтому необходимо соблюдать правила форматирования xml.
+Помните, если свойство содержит спецсимволы, оборачивайте значение тега в <strong>CDATA</strong>.
+.Пример</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;property&gt;</span></span>&lt;![CDATA[something with &amp; "" ']]&gt;<span style="font-weight: bold"><span style="color: #0000FF">&lt;/property&gt;</span></span>
+...</tt></pre></div></div>
+<div class="sect3">
+<h4 id="_обратные_ссылки">Обратные ссылки</h4>
+<div class="paragraph"><p>Можно получить значение свойства по указанному пути. Переменная заключается в <strong>${}</strong>, путь разделяется <strong>.</strong>.</p></div>
+<div class="listingblock">
+<div class="title">Пример</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">&lt;!-- Source --&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;dir&gt;</span></span>/www/dir<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dir&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;file&gt;</span></span>file.xml<span style="font-weight: bold"><span style="color: #0000FF">&lt;/file&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;fullname&gt;</span></span>${config.dir}/${config.file}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/fullname&gt;</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- в качестве секции пути можно использовать переменную --&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;example&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop1&gt;</span></span>prop2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop1&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop2&gt;</span></span>value2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop2&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop3&gt;</span></span>${config.example.${config.example.prop1}}<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop3&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/example&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">&lt;!-- Result --&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;dir&gt;</span></span>/www/dir<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dir&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;file&gt;</span></span>file.xml<span style="font-weight: bold"><span style="color: #0000FF">&lt;/file&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;fullname&gt;</span></span>/www/dir/file.xml<span style="font-weight: bold"><span style="color: #0000FF">&lt;/fullname&gt;</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">&lt;!-- в качестве секции пути можно использовать переменную --&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;example&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop1&gt;</span></span>prop2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop1&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop2&gt;</span></span>value2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop2&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;prop3&gt;</span></span>value2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/prop3&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/example&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_атрибуты">Атрибуты</h4>
+<div class="paragraph"><p>Возможно использования атрибутов.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">Атрибуты подтягиваются только если тэг без вложенных тэгов.</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">Пример</div><p>Запись source:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"1"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item</span></span> <span style="color: #009900">name</span><span style="color: #990000">=</span><span style="color: #FF0000">"2"</span><span style="font-weight: bold"><span style="color: #0000FF">&gt;&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Будет эквивалентна result:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF8"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;name&gt;</span></span>1<span style="font-weight: bold"><span style="color: #0000FF">&lt;/name&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;name&gt;</span></span>2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/name&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_перекрытие_свойств">Перекрытие свойств</h4>
+<div class="paragraph"><p>Свойства по одинаковуму xpath перекрываются.</p></div>
+<div class="paragraph"><div class="title">Пример</div><p>имеется два файла <em>config.xml</em> и <em>develop.xml</em>, объединим их.</p></div>
+<div class="paragraph"><p>file: config.xml</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;a&gt;</span></span>old<span style="font-weight: bold"><span style="color: #0000FF">&lt;/a&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>file: develop.xml</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;a&gt;</span></span>new<span style="font-weight: bold"><span style="color: #0000FF">&lt;/a&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>result:</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;a&gt;</span></span>new<span style="font-weight: bold"><span style="color: #0000FF">&lt;/a&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Пример слияния веток с одинаковыми именами (<em>config.xml merge develop.xml</em>).</p></div>
+<div class="paragraph"><p><tt>file: config.xml</tt></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>1<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>2<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>3<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p><tt>file: develop.xml</tt></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>a<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>b<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p><tt>result:</tt></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span><span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>a<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>b<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>3<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/root&gt;</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_секции">Секции</h3>
+<div class="paragraph"><p>Корневым элементом xml является тег <em>config</em>.</p></div>
+<div class="ulist"><div class="title">Config</div><ul>
+<li>
+<p>
+<em>paths</em> содержит определения абсолютных путей жизненно важных директорий
+</p>
+</li>
+<li>
+<p>
+<em>libs</em> содержит свойства библиотек
+</p>
+</li>
+<li>
+<p>
+<em>system</em> используетя для описания настроек операционной системы
+</p>
+</li>
+<li>
+<p>
+<em>hosts</em> складываем определение доменных имен
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="title">Пример</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF-8"</span> <span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;project_name&gt;</span></span>kin<span style="font-weight: bold"><span style="color: #0000FF">&lt;/project_name&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;paths&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;&lt;/root&gt;</span></span>
+
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;public&gt;</span></span>${config.paths.root}/public<span style="font-weight: bold"><span style="color: #0000FF">&lt;/public&gt;</span></span>
+                ...
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;tmp&gt;</span></span>${config.paths.root}/tmp<span style="font-weight: bold"><span style="color: #0000FF">&lt;/tmp&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;logs&gt;</span></span>${config.paths.tmp}/logs<span style="font-weight: bold"><span style="color: #0000FF">&lt;/logs&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/paths&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;hosts&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;root&gt;&lt;/root&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/hosts&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;system&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;username&gt;&lt;/username&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;bin&gt;</span></span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">&lt;python&gt;</span></span>python<span style="font-weight: bold"><span style="color: #0000FF">&lt;/python&gt;</span></span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">&lt;php&gt;</span></span>php<span style="font-weight: bold"><span style="color: #0000FF">&lt;/php&gt;</span></span>
+                        ...
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;/bin&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/system&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;libs&gt;</span></span>
+                ...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/libs&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+<div class="sect3">
+<h4 id="_libs">Libs</h4>
+<div class="paragraph"><p>В секции <em>libs</em> описаны библиотеки проекта, данные свойства выделяются в отдельные файлы в директории <em>parts</em>.</p></div>
+<div class="paragraph"><p>Пример части файла <em>build/properties/parts/miao.xml</em></p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">&lt;?xml</span></span> <span style="color: #009900">version</span><span style="color: #990000">=</span><span style="color: #FF0000">"1.0"</span> <span style="color: #009900">encoding</span><span style="color: #990000">=</span><span style="color: #FF0000">"UTF-8"</span> <span style="font-weight: bold"><span style="color: #000080">?&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;config&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;libs&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;Miao&gt;</span></span>
+                ...
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;/Miao&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/libs&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/config&gt;</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Далее будет рассматриваться секции внутри библиотеки.</p></div>
+<div class="sect4">
+<h5 id="_deploy">Deploy</h5>
+<div class="paragraph"><p>Секция <em>deploy</em> описывает настройки необходимые команде <strong>install</strong>.</p></div>
+<div class="ulist"><div class="title">Deploy</div><ul>
+<li>
+<p>
+<em>type</em> - тип репозитория (none|svn|git|hg)
+</p>
+</li>
+<li>
+<p>
+<em>tag</em> - названия бранча или тега (только для svn)
+</p>
+</li>
+<li>
+<p>
+<em>src</em> - ссылка репозитория
+</p>
+</li>
+<li>
+<p>
+<em>dst</em> - куда будут выгружены файлы из репозитория
+</p>
+</li>
+<li>
+<p>
+<em>current</em> - имя symlink на текущую версию библиотеки
+</p>
+</li>
+<li>
+<p>
+<em>username</em> - имя пользователя репозитория
+</p>
+</li>
+<li>
+<p>
+<em>password</em> - парольк репозитория
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect4">
+<h5 id="_configure_2">Configure</h5>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>depends</em> - содержит описание зависимостей
+Пример, проект использует библиотеки PHPUnit, Zend.
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;depends&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>PHPUnit<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>Zend<span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/depends&gt;</span></span></tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>dirs</em> - описание создаваемых директорий, состоит из <em>item</em>.
+        Вложенные теги: <em>dir</em> - абсолютный путь папки, <em>mode</em> - права доступа.
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">&lt;dirs&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;dir&gt;</span></span>data<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dir&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;mode&gt;</span></span>777<span style="font-weight: bold"><span style="color: #0000FF">&lt;/mode&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        ...
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dirs&gt;</span></span></tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>files</em> - генерация файлов из шаблонов, состоит из <em>item</em>.
+        Вложенные теги: <em>src</em> - абсолютный путь к файлу шаблона, <em>dst</em> - файл назначения, <em>mode</em> - права доступа.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Пример.</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>...
+<span style="font-weight: bold"><span style="color: #0000FF">&lt;files&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;src&gt;</span></span>${config.paths.build}/templates/scripts/setenv.sh.tpl<span style="font-weight: bold"><span style="color: #0000FF">&lt;/src&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;dst&gt;</span></span>${config.paths.scripts}/setenv.sh<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dst&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;mode&gt;</span></span>0555<span style="font-weight: bold"><span style="color: #0000FF">&lt;/mode&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+        ...
+...</tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_link_2">Link</h5>
+<div class="paragraph"><p>Описание создаваемых symlink, при выполнение команды <strong>link</strong>.
+Состоит из <em>item</em>: <em>src</em> - абсолютный путь к файлу, <em>dst</em> - symlink.</p></div>
+<div class="listingblock">
+<div class="title">Пример</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>...
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;item&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;src&gt;</span></span>${config.libs.Kin.deploy.dst}/modules/FrontOffice/public<span style="font-weight: bold"><span style="color: #0000FF">&lt;/src&gt;</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">&lt;dst&gt;</span></span>${config.paths.root}/public<span style="font-weight: bold"><span style="color: #0000FF">&lt;/dst&gt;</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">&lt;/item&gt;</span></span>
+...</tt></pre></div></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-08-01 16:12:56 MSD
+Last updated 2012-08-01 16:53:21 MSD
 </div>
 </div>
 </body>

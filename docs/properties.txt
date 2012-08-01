@@ -1,0 +1,357 @@
+== Свойства проекта
+Свойства проекта хранятся в директории 'build/properties' и имеют иерархическую структуру.  
+Является мета-языком для phing, обрабатываются специальными тасками.
+
+=== Иерархия
+
+*"Низы" меняются следом за "верхами"*
+
+image:docs/images/haru_stage.jpg[Haru stages]
+
+==== Первая ступень 
+Общие свойства 'build/properties/config.xml'. Содержит системные настройки, 
+например: корневая директория проекта, наименование виртуального хоста, путь к исполняемым файлам.
+И файлы находящиеся в директории 'build/properties/parts/*.xml', сделаны для разделения файла 'config.xml' на части 
+для удобного редактирования.
+
+[NOTE]
+Файлы из директории 'parts' используются для физического разделения ветвей xml, 
+в отличии от других ступеней, где свойства заменяются.
+
+[source,xml]
+----
+<!-- пример build/properties/config.xml -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<project_name>kin</project_name>
+	...	
+	<paths>
+		<root></root>
+
+		<public>${config.paths.root}/public</public>
+		<protected>${config.paths.root}/protected</protected>
+		...
+	</paths>
+	<hosts>
+		<root></root>
+		<public>${config.hosts.root}</public>
+		...
+	</hosts>
+	<system>
+		<username></username>
+		<bin>
+			<php>php</php>
+			...
+		</bin>
+	</system>
+	<libs></libs>
+</config>
+----
+
+[source,xml]
+----
+<!-- пример build/properties/parts/miao.xml -->
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<Miao>
+			<plugin>Standart</plugin>
+			<deploy>
+			...
+</config>
+----
+
+==== Вторая ступень
+Расширение настроек в зависимости от платформы.  
+Файл выбирается на основании параметра bt (build type) при запуске
+установки проекта. Может быть трех типов develop (D), test (T), production (P).
+Пример запуска команды './build/bin/phing install -Dbt=T'
+
+Данные настройки имеет приоритет выше, чем у свойств первой ступени, соответственно параметры перекрываются второй ступенью.
+Сюда складываются свойства типа: подлючения к БД, пользователь репозитория на test, production платформы.
+
+==== Третья ступень
+Пользовательские настройки. Данный файл, например 'build/properties/extends/users/vpak.xml', содержит личные настройки
+и не сохраняется в репозитории.
+
+Имеет высший приоритет перед остальными ступенями.
+
+==== Для чего нужна иерархия?
+Перекрытие свойств - удобный трюк для хранения параметров проекта. Он позволяет сократить количество параметров в файлах 
+расширениях. Ступенчатость (разделение по директориям 'extends', 'parts') упорядочивает структуру файлов. Данный прием 
+используется в Zend_Config и Ant.
+
+В конце концов при установке проекта файлы расширений собираются в один большой конфигурационный
+файл 'build/tmp/configs/config.xml ', который используется в сборке проекта.
+
+=== Синтаксис
+Файлы свойств имеют расширение xml, поэтому необходимо соблюдать правила форматирования xml.  
+Помните, если свойство содержит спецсимволы, оборачивайте значение тега в **CDATA**.
+.Пример
+[source,xml]
+----
+... 
+	<property><![CDATA[something with & "" ']]></property> 
+...
+----
+
+==== Обратные ссылки
+
+Можно получить значение свойства по указанному пути. Переменная заключается в *${}*, путь разделяется *.*.
+
+.Пример
+[source,xml]
+----
+<!-- Source -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>${config.dir}/${config.file}</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>${config.example.${config.example.prop1}}</prop3>
+	</example>
+</config>
+
+<!-- Result -->
+<config>
+	<dir>/www/dir</dir>
+	<file>file.xml</file>
+	<fullname>/www/dir/file.xml</fullname>
+	<!-- в качестве секции пути можно использовать переменную -->
+	<example>
+		<prop1>prop2</prop1>
+		<prop2>value2</prop2>
+		<prop3>value2</prop3>
+	</example>
+</config>
+----
+
+==== Атрибуты
+Возможно использования атрибутов. 
+
+[IMPORTANT]
+Атрибуты подтягиваются только если тэг без вложенных тэгов.
+
+.Пример
+Запись source:
+[source,xml]
+----
+<config>
+	<item name="1"></item>
+	<item name="2"></item>
+</config>
+----
+
+Будет эквивалентна result:
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF8"?>
+<config>
+	<item>
+		<name>1</name>
+	</item>
+	<item>
+		<name>2</name>
+	</item>
+</config>
+----
+
+==== Перекрытие свойств
+Свойства по одинаковуму xpath перекрываются.
+
+.Пример 
+имеется два файла 'config.xml' и 'develop.xml', объединим их.
+
+file: config.xml
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<a>old</a>
+</root>
+----
+
+file: develop.xml
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+----
+
+result:
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+----
+
+Пример слияния веток с одинаковыми именами ('config.xml merge develop.xml').
+
++file: config.xml+
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<item>1</item>
+	<item>2</item>
+	<item>3</item>
+</root>
+----
+
++file: develop.xml+
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+</root>
+----
+
++result:+
+[source,xml]
+----
+<?xml version="1.0"?>
+<root>
+	<item>a</item>
+	<item>b</item>
+	<item>3</item>
+</root>
+----
+
+=== Секции
+
+Корневым элементом xml является тег 'config'.
+
+.Config
+* 'paths' содержит определения абсолютных путей жизненно важных директорий
+* 'libs' содержит свойства библиотек
+* 'system' используетя для описания настроек операционной системы
+* 'hosts' складываем определение доменных имен
+
+.Пример
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<project_name>kin</project_name>
+	<paths>
+		<root></root>
+
+		<public>${config.paths.root}/public</public>
+		...
+		<tmp>${config.paths.root}/tmp</tmp>
+		<logs>${config.paths.tmp}/logs</logs>
+	</paths>
+	<hosts>
+		<root></root>
+	</hosts>
+	<system>
+		<username></username>
+		<bin>
+			<python>python</python>
+			<php>php</php>
+		        ...
+		</bin>
+	</system>
+	<libs>
+		...
+	</libs>
+</config>
+----
+
+==== Libs
+
+В секции 'libs' описаны библиотеки проекта, данные свойства выделяются в отдельные файлы в директории 'parts'.
+
+Пример части файла 'build/properties/parts/miao.xml'
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<libs>
+		<Miao>			
+		...
+		</Miao>
+	</libs>
+</config>
+----
+
+Далее будет рассматриваться секции внутри библиотеки.
+
+===== Deploy
+Секция 'deploy' описывает настройки необходимые команде **install**.
+
+.Deploy
+- 'type' - тип репозитория (none|svn|git|hg)
+- 'tag' - названия бранча или тега (только для svn)
+- 'src' - ссылка репозитория
+- 'dst' - куда будут выгружены файлы из репозитория
+- 'current' - имя symlink на текущую версию библиотеки
+- 'username' - имя пользователя репозитория
+- 'password' - парольк репозитория
+
+===== Configure
+
+- 'depends' - содержит описание зависимостей            
+Пример, проект использует библиотеки PHPUnit, Zend.
+
+[source,xml]
+----
+<depends>
+	<item>PHPUnit</item>
+	<item>Zend</item>
+</depends>
+----
+- 'dirs' - описание создаваемых директорий, состоит из 'item'. 
+	Вложенные теги: 'dir' - абсолютный путь папки, 'mode' - права доступа.
+
+[source,xml]
+----
+<dirs>					
+	<item>
+		<dir>data</dir>
+		<mode>777</mode>
+	</item>
+	...
+</dirs>
+----
+- 'files' - генерация файлов из шаблонов, состоит из 'item'. 
+	Вложенные теги: 'src' - абсолютный путь к файлу шаблона, 'dst' - файл назначения, 'mode' - права доступа.
+      
+Пример.
+
+[source,xml]
+----
+...
+<files>
+	<item>
+		<src>${config.paths.build}/templates/scripts/setenv.sh.tpl</src>
+		<dst>${config.paths.scripts}/setenv.sh</dst>
+		<mode>0555</mode>
+	</item>
+	...
+...
+----
+
+===== Link
+Описание создаваемых symlink, при выполнение команды **link**.
+Состоит из 'item': 'src' - абсолютный путь к файлу, 'dst' - symlink.
+
+.Пример
+[source,xml]
+----
+...
+	<item>
+		<src>${config.libs.Kin.deploy.dst}/modules/FrontOffice/public</src>
+		<dst>${config.paths.root}/public</dst>
+	</item>
+...
+----

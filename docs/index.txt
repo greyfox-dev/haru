@@ -1,0 +1,51 @@
+Haru
+====
+Vladimir Pak <TheRatW@gmail.com>
+
+Born in the spring
+image:docs/images/cats_return_cr.jpg[Cat's return]
+
+== Описание
+
+Универсальный автосборщик. Набор инструкций для link:http://www.phing.info[Phing], предназначенный
+для автоматизации сборки и установки проектов.
+
+== Требования к ПО
+PHP >= 5.3
+
+== Установка
+Скачайте и распакуйте архив необходимой версии программы link:https://github.com/TheRatG/haru[Haru]
+  
+Или
+  
+Скопируйте репозиторий
+[source,bash]
+----
+git clone git://github.com/TheRatG/haru.git
+----
+
+== Быстрый старт
+
+Выполните следующие команды:
+[source,bash]
+----
+git clone git://github.com/TheRatG/haru.git
+cd haru
+./phing born -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin -Dget-build.deploy.setup=1
+----
+    
+*Учебный проект готов*
+  
+Для запуска сайта настройте виртуальный хост: 
+[source,bash]
+----
+## создайте ссылку на кофигурационный файл для apache
+## например
+sudo ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf
+----
+
+include::features.txt[]
+include::cycles.txt[]
+include::in_haru.txt[]
+include::in_project_build.txt[]
+include::properties.txt[]

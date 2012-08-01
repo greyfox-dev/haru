@@ -1,0 +1,105 @@
+== In Project Build
+Команды отвечающие за установку проекта. Инструкциями для команд являются свойства проекта.
+
+.Опции
+* bt - build type, тип платформы (D|T|P), develop, test, production. Расширяет свойства соответствующими файлами из директории 'properties/extends/'
+* bu - имя пользователя, расширяет свойства соответствующим файлом из директории 'properties/extends/users/'
+
+[NOTE]
+По умолчанию подставляются опции: -Dbt=D -Dbu=<user>
+
+=== Install
+
+[source,bash]
+----
+$ <project_root>/build/bin/phing install
+----
+
+Создание минимально необходимых директорий и скачивание необходимых библиотек.
+При повторном запуске команды обновляет имеющиеся репозитории, если свойства изменились, докачивает необходимое.  
+Поддерживает выгрузку из репозиториев SVN, Git, Mercurial.
+
+=== Configure
+
+[source,bash]
+----
+$ <project_root>/build/bin/phing configure
+----
+Создает дополнительные директории, генерирует файлы из шаблонов, создает конфигурационные файлы для проекта и 
+библиотек (lib).
+
+Параметры генерация файлов из шаблонов описываются в специальной секции библиотеки.
+Сгенеренные файлы: различные скрипты запуска консольных приложений,
+конфигурационные файлы настройки виртуального хоста, конфиг sphinx и многое другое. В шаблонах файлах используются
+обратные ссылки из свойств проекта.
+
+.Пример
+source cron.sh.tpl:
+
+[source,bash]
+----
+#!/bin/bash
+${system.bin.php} ${paths.scripts}/cron.php --quiet
+----
+result cron.sh:
+
+[source,bash]
+----
+#!/bin/bash
+/usr/local/bin/php /www/myproject/scripts/cron.php --quiet
+----
+
+=== Link
+
+[source,bash]
+----
+$ <project_root>/build/bin/phing link
+----
+
+Создает symlinks для проекта.  
+При помощи symliks переключаемся между версиями проекта. 
+Симлинки нужны для настройки виртуального хоста, и крон-скриптов.
+
+[WARNING]
+Не злоупотребляйте symliks, по возможности используйте в скриптах абсолютные пути.
+
+=== Дополнительные инструкции
+Каждую из команд можно дополнить своими инструкциями phing, которые выполняются до (before) или после (after) запуска команды.
+Для этого необходимо внести изменения в одноименные файлы в директории **<project_root>/build/targets**.  
+Используется для запуска дополнительных операций необходимых для установки проектов.
+
+.Пример
+Необходимо запустить скрипт сжатия js-скриптов, после конфигурирвоания проекта (configure).
+
+Редактируем файл '<project_root>/build/targets/configure.xml', 
+добавляем в цель (target) configure-after свои инструкции.
+
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="help">
+        <target name="configure-before">
+                <echo>custom project actions _before_ configure</echo>
+        </target>
+        <target name="configure-after">
+                <echo>custom project actions _after_ configure</echo>
+                <!-- run minify -->
+                <exec command="<project_root>/scripts/minify.php" checkreturn="1" />
+        </target>
+</project>
+----
+
+Одним из приемов использования является запуск своих инструкций (build.xml - phing), 
+например хранящиеся в директории библиотеки.
+
+.Пример
+[source,xml]
+----
+<!-- file: <project_root>/build/targets/configure.xml -->
+...
+	<target name="configure-after">
+		<phing phingfile="<project_root>/lib/<project>/<branch>/build/configure.xml" 
+			target="main" haltonfailure="true">
+	</target>
+...
+----
