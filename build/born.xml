@@ -150,16 +150,33 @@
 				<expandproperties />
 			</filterchain>
 		</copy>
+		
+		<move file="${born-properties.paths.root}/build/.gitignore.tpl" 
+					tofile="${born-properties.paths.root}/build/.gitignore" 
+					overwrite="true"/>
+		<move file="${born-properties.paths.root}/build/.hgignore.tpl" 
+					tofile="${born-properties.paths.root}/build/.hgignore" 
+					overwrite="true"/>
 	</target>
 
 	<target name="born-project">
+		<property name="born-project.path.root"
+			value="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}" />
+	
 		<copy
-			todir="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}">
+			todir="${born-project.path.root}">
 			<fileset dir="${build.tmpldir.root}/libs/kin" />
 			<filterchain>
 				<expandproperties />
 			</filterchain>
 		</copy>
+		
+		<move file="${born-project.path.root}/.gitignore.tpl" 
+					tofile="${born-project.path.root}/.gitignore" 
+					overwrite="true"/>
+		<move file="${born-project.path.root}/.hgignore.tpl" 
+					tofile="${born-project.path.root}/.hgignore" 
+					overwrite="true"/>
 
 		<chmod file="${born-properties.paths.root}/build/bin/phing" mode="0555" />
 		<property name="born-project.setup.command"

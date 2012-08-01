@@ -135,13 +135,6 @@
 				</then>
 			</elseif>
 		</if>
-		
-		<move file="${born-properties.paths.root}/build/.gitignore.tpl" 
-					tofile="${born-properties.paths.root}/build/.gitignore" 
-					overwrite="true"/>
-		<move file="${born-properties.paths.root}/build/.hgignore.tpl" 
-					tofile="${born-properties.paths.root}/build/.hgignore" 
-					overwrite="true"/>
 	</target>
 	
 	<target name="born-repo-project-repos-init">
@@ -168,8 +161,11 @@
 	</target>
 	
 	<target name="born-repo-project-setup">
+		<property name="born-repo-project-setup.project.root" 
+			value="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}" />
+	
 		<copy
-			todir="${born-properties.paths.root}/libs/${born-properties.project_name}/${born-properties.lib.tag}">
+			todir="${born-repo-project-setup.project.root}">
 			<fileset dir="${build.tmpldir.root}/libs/kin" />
 			<filterchain>
 				<expandproperties />
@@ -181,5 +177,12 @@
 			value="${born-properties.paths.root}/build/bin/phing install configure link -Dbt=D -Dbu=${build.username}" />
 		<exec command="${born-project.setup.command}"
 					passthru="true" checkreturn="true" level="info"  />
+					
+		<move file="${born-repo-project-setup.project.root}/.gitignore.tpl" 
+					tofile="${born-repo-project-setup.project.root}/.gitignore" 
+					overwrite="true"/>
+		<move file="${born-repo-project-setup.project.root}/.hgignore.tpl" 
+					tofile="${born-repo-project-setup.project.root}/.hgignore" 
+					overwrite="true"/>
 	</target>
 </project>
