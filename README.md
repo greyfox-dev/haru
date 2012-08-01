@@ -131,10 +131,11 @@ $ ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf # пример 
 
 Пример.
 ```bash
-$ ./phing born-repo -Dhbt=svn -Dhbu=https://github.com/<user>/project-build.git \
+$ ./phing born-repo -Dhbt=svn -Dhbu=https://github.com/<user>/<project_build>.git \
 	-Dlt=svn -Dlu=https://github.com/<user>/project.git \
-	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<porject>
-$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf # пример настройки виртуального хоста apache
+	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<project>
+$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
+	# пример настройки виртуального хоста apache
 ```
 
 Далее добавить файлы в репозиторий, сохранить.
@@ -152,13 +153,15 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf # �
 - host - хост проекта
 
 Пример.
-Установить проект в директории `/www/kin`, который будет доступен по адресу `http://kin.dv`, 
-при помощи проектной сборки, находящейся по адресу `git://github.com/TheRatG/kin.git`
+Установить проект в директории `/www/<project>`, который будет доступен по адресу `http://<project_host>`, 
+при помощи проектной сборки, находящейся по адресу `git://github.com/<user>/<project_build>.git`
 
 ```bash
 $ cd /www/haru
-$ ./phing born -Dvcs=git -Dsrc=git://github.com/TheRatG/kin.git -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin
-$ ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf # пример настройки виртуального хоста apache
+$ ./phing born -Dvcs=git -Dsrc=git://github.com/<user>/<project_build>.git \
+	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<project>
+$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
+	# пример настройки виртуального хоста apache
 ```
 
 ## In Project Build
