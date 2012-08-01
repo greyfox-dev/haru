@@ -107,12 +107,23 @@ In Project Build
 
 ### Born
 
-`./phing born` - создание учебного проекта.
+`./phing born` - создание учебного проекта
 
 Опции:
 - path - директория где будет располагаться файлы учебного проекта
 - lib - наименование библиотеки проекта
 - host - хост проекта
+
+Пример.
+Создать проект в директории `/www/kin`, который будет доступен по адресу `http://kin.dv`
+
+```bash
+$ cd /www/haru
+$ ./phing born -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin
+$ ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf # пример настройки виртуального хоста apache
+```
+
+> Если параметры не указаны будет сделан запрос **promt**
 
 ### Get Build
 
