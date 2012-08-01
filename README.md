@@ -129,6 +129,16 @@ $ ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf # пример 
 Тоже что и **born**, добавляются операции по инициализации репозиториев для **project_build** и вашей библиотеки **libs/<lib_name>/<branch>**.
 Используется в случае, если вы захотите развивать созданный проект дальше :).
 
+Пример.
+```bash
+$ ./phing born-repo -Dhbt=svn -Dhbu=https://github.com/<user>/project-build.git \
+	-Dlt=svn -Dlu=https://github.com/<user>/project.git \
+	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<porject>
+$ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf # пример настройки виртуального хоста apache
+```
+
+Далее добавить файлы в репозиторий, сохранить.
+
 ### Get Build
 Устанавливает проект при помощи **project_build**.   
 Создает необходимые директории, cкачивает **project_build** из указанного репозитория, 
