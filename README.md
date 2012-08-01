@@ -221,6 +221,36 @@ In Project Build
 ```
 
 #### Атрибуты
+Атрибуты подтягиваются только если тэг без вложенных тэгов.
+
+#### Перекрытие свойств
+Свойства по одинаковуму xpath перекрываются, в порядке описания.
+
+Пример: имеется два файла `config.xml` и `develop.xml`, объеденим их.
+
+file: config.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>old</a>
+</root>
+```
+
+file: develop.xml
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+```
+
+result:
+```xml
+<?xml version="1.0"?>
+<root>
+	<a>new</a>
+</root>
+```
 
 ### Секции
 
