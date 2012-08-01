@@ -570,3 +570,19 @@ result:
 	...
 ...
 ```
+
+##### Link
+Описание создаваемых symlink, при выполнение команды **link**.
+Состоит из `item`. 		
+- `src` - абсолютный путь к файлу
+- `dst` - symlink
+
+Пример.
+```xml
+...
+	<item>
+		<src>${config.libs.Kin.deploy.dst}/modules/FrontOffice/public</src>
+		<dst>${config.paths.root}/public</dst>
+	</item>
+...
+```
