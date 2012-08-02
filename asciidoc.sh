@@ -1,2 +1,3 @@
 #!/bin/bash
-asciidoc -v -o index.html docs/index.txt
+DIRNAME=`pwd`
+asciidoc -a encoding="UTF8" --theme=flask -a scriptsdir="$DIRNAME/docs/scripts" -v -a toc -a numbered -o index.html docs/index.txt

@@ -2,6 +2,8 @@ Haru
 ====
 Vladimir Pak <TheRatW@gmail.com>
 
+pass::[<script data-main="docs/scripts/main" src="docs/scripts/require.js"></script>]
+
 .Born in the spring
 image:docs/images/cats_return_cr.jpg[Cat's return]
 
@@ -45,7 +47,11 @@ sudo ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf
 ----
 
 include::features.txt[]
-include::cycles.txt[]
+
 include::in_haru.txt[]
+
 include::in_project_build.txt[]
+
+include::cycles.txt[]
+
 include::properties.txt[]

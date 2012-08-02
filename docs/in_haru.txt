@@ -67,3 +67,4 @@ $ ./phing born -Dvcs=git -Dsrc=git://github.com/<user>/<project_build>.git \
 $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 	# пример настройки виртуального хоста apache
 ----
+
