@@ -48,6 +48,12 @@
 						<type>none</type>
 					</Handler>
 				</Session>
+				<TemplatesEngine>
+					<PhpNative>
+						<debug>0</debug>
+						<logFilename>${config.paths.logs}/templates_engine_log</logFilename>
+					</PhpNative>
+				</TemplatesEngine>
 			</modules>
 		</Miao>
 	</libs>

@@ -20,5 +20,14 @@
 				</FrontOffice>
 			</modules>
 		</${born-properties.lib_name}>
+		<Miao>
+			<modules>
+				<TemplatesEngine>
+					<PhpNative>
+						<debug>1</debug>
+					</PhpNative>
+				</TemplatesEngine>
+			</modules>
+		</Miao>
 	</libs>
 </config>
