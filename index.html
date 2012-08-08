@@ -834,8 +834,8 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>$ cd /www/haru
-$ <span style="color: #990000">.</span>/phing born -Dvcs<span style="color: #990000">=</span>git -Dsrc<span style="color: #990000">=</span>git<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com<span style="color: #990000">/&lt;</span>user<span style="color: #990000">&gt;/&lt;</span>project_build<span style="color: #990000">&gt;.</span>git <span style="color: #990000">\</span>
-        -Dpath<span style="color: #990000">=</span>/www<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;</span> -Dhost<span style="color: #990000">=&lt;</span>project_host<span style="color: #990000">&gt;</span> -Dlib<span style="color: #990000">=&lt;</span>project<span style="color: #990000">&gt;</span>
+$ <span style="color: #990000">.</span>/phing get-build -Dvcs<span style="color: #990000">=</span>git -Dsrc<span style="color: #990000">=</span>git<span style="color: #990000">:</span>//github<span style="color: #990000">.</span>com<span style="color: #990000">/&lt;</span>user<span style="color: #990000">&gt;/&lt;</span>project_build<span style="color: #990000">&gt;.</span>git <span style="color: #990000">\</span>
+        -Dpath<span style="color: #990000">=</span>/www<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;</span> -Dhost<span style="color: #990000">=&lt;</span>project_host<span style="color: #990000">&gt;</span>
 $ ln -s /www/kin/etc<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf /usr/local/apache<span style="color: #993399">2</span>/conf<span style="color: #990000">.</span>d<span style="color: #990000">/&lt;</span>project<span style="color: #990000">&gt;.</span>conf <span style="color: #990000">\</span>
         <span style="font-style: italic"><span style="color: #9A1900"># пример настройки виртуального хоста apache</span></span></tt></pre></div></div>
 </div>
@@ -1502,11 +1502,41 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_проблемы">10. Проблемы</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Зависает скрипт выката.</p></div>
+<div class="paragraph"><p>Такая ситуация возникает в случае, когда необходимо интерактивое действие пользователя.
+Например запрос логина или пароля при клонировании репозитория. Попробуйте выполнить последнюю команды из
+отладочного вывода процесса.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_история">11. История</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Данные продукт используется в качестве автосборки проектов в РБК с 2012 года.</p></div>
+<div class="paragraph"><p>Изначально для сборки проектов использовался ANT, но так по некоторым причинам был произведен переход на Phing.
+.Отрицательные стороны Ant
+* медленная скорость работы
+* необходимость устанавливать дополнительные пакеты <strong>jar</strong>
+* сложность расширения
+* трудности при работе с шаблонами</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_авторы">12. Авторы</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Авторы идеи и концепций автосборки
+Доработки по mercurial
+Интерактивные диалоги
+Тестирование</p></div>
+</div>
+</div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-08-02 17:43:07 MSD
+Last updated 2012-08-08 10:48:57 MSD
 </div>
 </div>
 </body>

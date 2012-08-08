@@ -62,8 +62,8 @@ $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 [source,bash]
 ----
 $ cd /www/haru
-$ ./phing born -Dvcs=git -Dsrc=git://github.com/<user>/<project_build>.git \
-	-Dpath=/www/<project> -Dhost=<project_host> -Dlib=<project>
+$ ./phing get-build -Dvcs=git -Dsrc=git://github.com/<user>/<project_build>.git \
+	-Dpath=/www/<project> -Dhost=<project_host>
 $ ln -s /www/kin/etc/<project>.conf /usr/local/apache2/conf.d/<project>.conf \
 	# пример настройки виртуального хоста apache
 ----
