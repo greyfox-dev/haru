@@ -218,7 +218,7 @@ class LibDeployTask extends Task
 				$command = sprintf( '%s checkout "%s";', $bin, $branch );
 				$this->_exec( $command, $returnProp, $outputProp, $toDir );
 			}
-			$command = sprintf( '%s pull %s', $bin, $toDir );
+			$command = sprintf( '%s pull origin %s', $bin, $branch );
 			$this->_exec( $command, $returnProp, $outputProp, $toDir );
 		}
 		else
