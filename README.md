@@ -12,8 +12,6 @@ Born in the spring
 PHP >= 5.3
 
 ## Установка
-Скачайте и распакуйте архив необходимой версии программы [Haru](https://github.com/greyfox-dev/haru)  
-Или  
 Скопируйте репозиторий
 
     git clone git://github.com/greyfox-dev/haru.git
@@ -32,7 +30,3 @@ PHP >= 5.3
     ## создайте ссылку на кофигурационный файл для apache
     ## например
     sudo ln -s /www/kin/etc/kin.conf /usr/local/apache2/conf.d/kin.conf
-    
-## Полная документация
-
-Ознакомится с полной документацией проекта [Haru](http://theratg.github.com/haru)
