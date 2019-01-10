@@ -12,17 +12,17 @@ Born in the spring
 PHP >= 5.3
 
 ## Установка
-Скачайте и распакуйте архив необходимой версии программы [Haru](https://github.com/TheRatG/haru)  
+Скачайте и распакуйте архив необходимой версии программы [Haru](https://github.com/greyfox-dev/haru)  
 Или  
 Скопируйте репозиторий
 
-    git clone git://github.com/TheRatG/haru.git
+    git clone git://github.com/greyfox-dev/haru.git
 
 ## Быстрый старт
 
 Выполните следующие команды:
 
-    git clone git://github.com/TheRatG/haru.git
+    git clone git://github.com/greyfox-dev/haru.git
     cd haru
     ./phing born -Dpath=/www/kin -Dhost=kin.dv -Dlib=kin -Dget-build.deploy.setup=1
     
